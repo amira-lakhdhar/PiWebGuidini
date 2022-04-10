@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}FrontTest index{% endblock %}
+
+{% block body %}
+    <h1>FrontTest index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for front_test in front_tests %}
+            <tr>
+                <td>{{ front_test.id }}</td>
+                <td>
+                    <a href="{{ path('front_test_show', {'id': front_test.id}) }}">show</a>
+                    <a href="{{ path('front_test_edit', {'id': front_test.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="2">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('front_test_new') }}">Create new</a>
+{% endblock %}

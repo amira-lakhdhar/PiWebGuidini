@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Place{% endblock %}
+
+{% block body %}
+    <h1>Place</h1>
+
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>type</th>
+            <td>{{ place.type }}</td>
+        </tr>
+        <tr>
+            <th>nom</th>
+            <td>{{ place.nom }}</td>
+        </tr>
+        <tr>
+            <th>adresse</th>
+            <td>{{ place.adresse }}</td>
+        </tr>
+        <tr>
+            <th>photo</th>
+            <td>{{ place.photo }}</td>
+        </tr>
+        <tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('place') }}">back to list</a>
+
+    <a href="{{ path('placeEdit', {'id': place.id}) }}">edit</a>
+
+    <a href="{{ path('placeDelete', {'id': place.id}) }}">delete</a>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Avis{% endblock %}
+
+{% block body %}
+    <h1>Avis</h1>
+
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>Rate</th>
+            <td>{{ avis.rate }}</td>
+        </tr>
+        <tr>
+            <th>User</th>
+            <td>{{ avis.user.nom }} {{ avis.user.prenom }}</td>
+        </tr>
+        <tr>
+            <th>Place</th>
+            <td>{{ avis.place.nom }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('avis') }}">back to list</a>
+
+    <a href="{{ path('avisEdit', {'id': avis.id}) }}">edit</a>
+
+    <a href="{{ path('avisDelete', {'id': avis.id}) }}">delete</a>
+{% endblock %}

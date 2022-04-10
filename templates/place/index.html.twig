@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Place index{% endblock %}
+
+{% block body %}
+    <h1>Place index</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>type</th>
+            <th>nom</th>
+            <th>adresse</th>
+            <th>photo</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for place in place %}
+            <tr>
+                <td>{{ place.type }}</td>
+                <td>{{ place.nom }}</td>
+                <td>{{ place.adresse }}</td>
+                <td>{{ place.photo }}</td>
+                <td>
+                    <a href="{{ path('placeShow', {'id': place.id}) }}">show</a>
+                    <a href="{{ path('placeEdit', {'id': place.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('AddPlace') }}">Create new</a>
+{% endblock %}
