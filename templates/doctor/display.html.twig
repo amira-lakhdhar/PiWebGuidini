@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello DoctorController!{% endblock %}
+
+{% block body %}
+    <table>
+    <thead>
+    <th>  </th>
+    <th>Name</th>
+    <th>Location</th>
+    <th>Speciality</th>
+    <th>Phone</th>
+    <th>Hospital </th>
+    <th>Actions</th>
+    </thead>
+
+        {% for doctor in doctors %}
+            <tr>
+                <td><img src="{{ asset('Uploads/Image/'~doctor.Image) }}" width="150">  </td>
+                <td>{{ doctor.name }}</td>
+                <td>{{ doctor.location }}</td>
+                <td>{{ doctor.speciality }}</td>
+                <td>{{ doctor.phone }}</td>
+                <td>{{ doctor.getIdHospital().name }}</td>
+                <td><a href="{{ path('deletedoctor',{'id':doctor.id}) }}">Delete</a> <br>
+                    <a href="{{ path('modiferdoctor',{'id':doctor.id}) }}">Modifier</a>
+                </td>
+            </tr>
+
+        {% endfor %}
+    </table>
+
+    <a href="{{ path('AddDoctor') }}">Add A new Doctor</a>
+
+
+
+{% endblock %}

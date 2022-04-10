@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HospitalController!{% endblock %}
+
+{% block body %}
+    <table>
+        <thead>
+        <th>  </th>
+        <th>Name</th>
+        <th>Location</th>
+        <th>Hourly</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <th>Actions</th>
+        </thead>
+        {% for pharmacy in pharmacies %}
+        <tr>
+            <td>  </td>
+            <td>{{ pharmacy.name }}</td>
+            <td>{{ pharmacy.location }}</td>
+            <td>{{ pharmacy.hourly }}</td>
+            <td>{{ pharmacy.phone }}</td>
+            <td>{{ pharmacy.email }}</td>
+            <td><a href="{{ path('DeletePharmacy',{'id':pharmacy.id}) }}">Delete</a> <br>
+                <a href="{{ path('modiferpharmacy',{'id':pharmacy.id}) }}">Modifier</a>
+            </td>
+        </tr>
+        {% endfor %}
+
+    </table>
+    <a href="{{ path('AddPharmacy') }}">Add A new Pharmacy</a>
+
+
+
+{% endblock %}
