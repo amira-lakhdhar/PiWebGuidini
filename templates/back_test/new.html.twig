@@ -1,0 +1,11 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}New BackTest{% endblock %}
+
+{% block body %}
+    <h1>Create new BackTest</h1>
+
+    {{ include('back_test/_form.html.twig') }}
+
+    <a href="{{ path('back_test_index') }}">back to list</a>
+{% endblock %}
