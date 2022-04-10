@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <center> <h1>List des Evenements</h1></center>
+    <table>
+        <thead>
+        <th></th>
+        <th>Nom evenement</th>
+        <th> Data Evenement </th>
+        <th>Type</th>
+        <th>Localisation</th>
+        <th>Prix</th>
+        <th>Offre </th>
+
+        <th>Actions</th>
+        </thead>
+
+        {% for event in events %}
+            <tr>
+                <td><img src="{{ asset('Uploads/Image/'~event.Image) }}" width="120"> </td>
+                <td>{{ event.nom }}</td>
+                <td>{{ event.Date |date('d-m-Y')}}</td>
+                <td>{{ event.Type }}</td>
+                <td>{{ event.localisation }}</td>
+                {% if event.getOffre().Pourcentage==0 %}
+                <td>{{ event.Prix }}$</td>
+                {% else %}
+                    <td>{{ event.Prix/event.getOffre().Pourcentage }}$</td>
+                 {% endif %}
+                <td>{{ event.getOffre().nom }}</td>
+
+                <td><a href="{{ path('deleteEvenement',{'id':event.id}) }}">Delete</a> <br>
+                    <a href="{{ path('modifierEvenement',{'id':event.id}) }}">Modifier</a>
+                </td>
+            </tr>
+
+        {% endfor %}
+    </table>
+
+    <a href="{{ path('AjouterEvenement') }}">Add A new Evenement</a>
+
+
+
+{% endblock %}

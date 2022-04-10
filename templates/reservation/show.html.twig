@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <center> <h1>Mes reservations</h1></center>
+    <table>
+        <thead>
+        <th></th>
+        <th> Nom evenement</th>
+        <th> Data Evenement </th>
+        <th>Type</th>
+        <th>Localisation</th>
+        <th>Prix</th>
+
+        <th>Actions</th>
+        </thead>
+
+        {% for reservation in reservations %}
+            <tr>
+                <td><img src="{{ asset('Uploads/Image/'~reservation.getIdEvenement().Image) }}" width="120"> </td>
+                <td>{{ reservation.getIdEvenement().nom }}</td>
+                <td>{{ reservation.getIdEvenement().Date |date('d-m-Y')}}</td>
+                <td>{{ reservation.getIdEvenement().Type }}</td>
+                <td>{{ reservation.getIdEvenement().localisation }}</td>
+                {% if reservation.getIdEvenement().getOffre().Pourcentage==0 %}
+                    <td>{{reservation.getIdEvenement().Prix }}$</td>
+                {% else %}
+                    <td>{{ reservation.getIdEvenement().Prix/reservation.getIdEvenement().getOffre().Pourcentage }}$</td>
+                {% endif %}
+                <td>{{ reservation.getIdEvenement().getOffre().nom }}</td>
+
+
+                <td><a href="{{ path('deletereservation',{'id':reservation.id}) }}">Cancel Reservation</a> <br>
+                </td>
+            </tr>
+
+        {% endfor %}
+    </table>
+
+
+
+
+{% endblock %}

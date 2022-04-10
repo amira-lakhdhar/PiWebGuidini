@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <center> <h1>List des Evenements</h1></center>
+    <table>
+        <thead>
+        <th></th>
+        <th>Nom evenement</th>
+        <th> Data Evenement </th>
+        <th>Type</th>
+        <th>Localisation</th>
+        <th>Prix</th>
+
+        <th>Actions</th>
+        </thead>
+
+        {% for event in events %}
+            <tr>
+                <td><img src="{{ asset('Uploads/Image/'~event.Image) }}" width="120"> </td>
+                <td>{{ event.nom }}</td>
+                <td>{{ event.Date |date('d-m-Y')}}</td>
+                <td>{{ event.Type }}</td>
+                <td>{{ event.localisation }}</td>
+                {% if event.getOffre().Pourcentage==0 %}
+                    <td>{{ event.Prix }}$</td>
+                {% else %}
+                    <td>{{ event.Prix/event.getOffre().Pourcentage }}$</td>
+                {% endif %}
+                <td>{{ event.getOffre().nom }}</td>
+                {% if reservations is empty %}
+                <td><a href="{{ path('AjouterReservation',{'id_event':event.id}) }}">Reserver</a> <br></td>
+                {% else %}
+                {% for reservation in reservations %}
+                {% if reservation.getIdEvenement().getId()==event.getId() %}
+
+                    {% if user.id==reservation.getIdUser().getId() %}
+                    <td> Déja Réserver</td>
+                    {% else %}
+                <td><a href="{{ path('AjouterReservation',{'id_event':event.id}) }}">Reserver</a> <br></td>
+                    {% endif %}
+                    {% else %}
+                <td><a href="{{ path('AjouterReservation',{'id_event':event.id}) }}">Reserver</a> <br></td>
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
+
+
+            </tr>
+
+        {% endfor %}
+    </table>
+
+
+
+
+{% endblock %}
