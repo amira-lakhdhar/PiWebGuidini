@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User Reservation{% endblock %}
+
+{% block body %}
+    <h1>Reservation index</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>date</th>
+            <th>duree</th>
+            <th>etat</th>
+            <th>payement</th>
+            <th>user</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in user %}
+            <tr>
+                <td>{{ reservation.date|date }}</td>
+                <td>{{ reservation.duree }}</td>
+                <td>{{ reservation.etat }}</td>
+                {% if reservation.payement==false %}
+                    <td> en cours </td>
+                {% elseif reservation.payement==true %}
+                    <td> payé </td>
+                {% endif %}
+                <td>{{ reservation.user.nom }} {{ reservation.user.prenom }}</td>
+                <td>
+                    <a href="{{ path('reservationShow', {'id': reservation.id}) }}">show</a>
+                    <a href="{{ path('reservationEdit', {'id': reservation.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('AddReservation') }}">Create new</a>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hebergement{% endblock %}
+
+{% block body %}
+    <h1>Hebergement</h1>
+
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>type</th>
+            <td>{{ hebergement.type }}</td>
+        </tr>
+        <tr>
+            <th>prenom</th>
+            <td>{{ hebergement.nom }}</td>
+        </tr>
+        <tr>
+            <th>adresse</th>
+            <td>{{ hebergement.adresse }}</td>
+        </tr>
+        <tr>
+            <th>prix Par Nuit</th>
+            <td>{{ hebergement.prixParNuit }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('hebergement') }}">back to list</a>
+
+    <a href="{{ path('hebergementEdit', {'id': hebergement.id}) }}">edit</a>
+
+    <a href="{{ path('hebergementDelete', {'id': hebergement.id}) }}">delete</a>
+{% endblock %}
