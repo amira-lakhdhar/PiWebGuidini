@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <table>
+        <thead>
+        <th>  </th>
+        <th>Voyage à </th>
+        <th>Description</th>
+        <th>Prix </th>
+        <th>Num du vol</th>
+        <th>ville depart</th>
+        <th>type vol</th>
+        <th>Date </th>
+        <th>Compagnie</th>
+        <th>      </th>
+        <th>Actions</th>
+        </thead>
+        {% for voyage in voyages %}
+            <tr>
+                <td>  </td>
+                <td>{{ voyage.localisation }}</td>
+                <td>{{ voyage.description}}</td>
+                <td>{{ voyage.Prix }} $</td>
+                <td>{{ voyage.getVol().getNumVol() }}</td>
+                <td> {{ voyage.getVol().getVilleDepart() }}</td>
+                <td>{{ voyage.getVol().getTypeVol() }}</td>
+                <td>{{ voyage.getVol().getDateVol() |date('d-m-Y')}}</td>
+                <td>{{ voyage.getVol().getCompagnie().nom }}</td>
+                <td> <img src="{{ asset('Uploads/Image/'~voyage.getVol().getCompagnie().Logo) }}" width="70"> </td>
+                <td><a href="{{ path('DeleteVoyage',{'id':voyage.id}) }}">Delete</a> <br>
+                    <a href="{{ path('ModifierVoyage',{'id':voyage.id}) }}">Modifier</a>
+                </td>
+            </tr>
+        {% endfor %}
+
+    </table>
+    <a href="{{ path('AjouterVoyage') }}">Ajouter une nouvelle Voyage</a>
+
+
+
+{% endblock %}

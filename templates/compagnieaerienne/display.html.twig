@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <center> <h1>List des Compagnie Aerienne</h1></center>
+    <table>
+    <thead>
+    <th> Logo </th>
+    <th>Nom</th>
+    <th>Email</th>
+    <th>Contact</th>
+    <th>Actions</th>
+    </thead>
+
+        {% for compagnie in Compagnies %}
+            <tr>
+                <td><img src="{{ asset('Uploads/Image/'~compagnie.Logo) }}" width="120"> </td>
+                <td>{{ compagnie.nom }}</td>
+                <td>{{ compagnie.email }}</td>
+                <td>{{ compagnie.contact }}</td>
+                <td><a href="{{ path('deleteCompagnie',{'id':compagnie.id}) }}">Delete</a> <br>
+                    <a href="{{ path('modiferCompagnie',{'id':compagnie.id}) }}">Modifier</a>
+                </td>
+            </tr>
+
+        {% endfor %}
+    </table>
+
+    <a href="{{ path('AddCompagnie') }}">Add A new Compagnie</a>
+
+
+
+{% endblock %}

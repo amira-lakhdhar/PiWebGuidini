@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HospitalController!{% endblock %}
+
+{% block body %}
+
+    {{ form_start(f) }}
+    {{ form_end(f) }}
+    <a href="{{ path('DisplayCompagnie') }}">Back to Compagnies List</a>
+
+{% endblock %}

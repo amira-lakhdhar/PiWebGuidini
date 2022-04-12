@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <table>
+        <thead>
+        <th>  </th>
+        <th>Numero du vol</th>
+        <th>Date du vol</th>
+        <th>Destination</th>
+        <th>ville depart</th>
+        <th>type vol</th>
+        <th>Compagnie</th>
+        <th>      </th>
+        <th>Actions</th>
+        </thead>
+        {% for vol in vols %}
+            <tr>
+                <td>  </td>
+                <td>{{ vol.getNumVol() }}</td>
+                <td>{{ vol.getDateVol() |date('d-m-Y')}}</td>
+                <td>{{ vol.destination }}</td>
+                <td>{{ vol.getVilleDepart() }}</td>
+                <td>{{ vol.getTypeVol() }}</td>
+                <td>{{ vol.getCompagnie().nom }}</td>
+                <td> <img src="{{ asset('Uploads/Image/'~vol.getCompagnie().Logo) }}" width="70"> </td>
+                <td><a href="{{ path('DeleteVol',{'id':vol.id}) }}">Delete</a> <br>
+                    <a href="{{ path('modifierVol',{'id':vol.id}) }}">Modifier</a>
+                </td>
+            </tr>
+        {% endfor %}
+
+    </table>
+    <a href="{{ path('AddVol') }}">Ajouter une nouvelle Vol</a>
+
+
+
+{% endblock %}

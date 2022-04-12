@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+    {{ form_start(f) }}
+    {{ form_end(f) }}
+    <a href="{{ path('ConsulterVoyage') }}">Back to Voyages List</a>
+
+{% endblock %}
