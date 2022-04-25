@@ -68,7 +68,7 @@ class CompagnieaerienneController extends AbstractController
     /**
      * @Route("/DisplayCompagnie", name="DisplayCompagnie")
      */
-    public function displayHospital(): Response
+    public function displayCompagnie(): Response
     {
         $compagnies = $this->getDoctrine()->getManager()->getRepository(Compagnieaerienne::class)->findAll();
 

@@ -6,6 +6,7 @@ use App\Repository\VoyageRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=VoyageRepository::class)
@@ -19,17 +20,25 @@ class Voyage
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $localisation;
+
 
     /**
+     * @Assert\NotBlank(message="Description is required")
+     * @Assert\Length(
+     *     min=10,
+     *     max=255,
+     *     minMessage ="Description should be >=10")
+     * )
      * @ORM\Column(type="string", length=255)
      */
     private $description;
 
     /**
+     * @Assert\NotBlank(message="Prix is required")
+     * @Assert\Range(
+     *      min = 0,
+     *      notInRangeMessage = "Prix must be positive ",
+     * )
      * @ORM\Column(type="float")
      */
     private $Prix;

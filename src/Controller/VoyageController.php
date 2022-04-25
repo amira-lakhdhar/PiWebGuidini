@@ -59,6 +59,28 @@ class VoyageController extends AbstractController
     }
 
     /**
+     * @Route("/ConsulterVoyagesUser", name="ConsulterVoyagesUser")
+     */
+    public function displayVoyagesUser(): Response
+    {
+        $voyages = $this->getDoctrine()->getManager()->getRepository(Voyage::class)->findAll();
+
+
+        return $this->render('voyage/displayUser.html.twig', [
+            'voyages'=>$voyages]);
+    }
+    /**
+     * @Route("/ConsulterVoyageUser/{id}", name="ConsulterVoyageUser")
+     */
+    public function displayVoyageUser($id): Response
+    {
+        $voyage = $this->getDoctrine()->getManager()->getRepository(Voyage::class)->find($id);
+
+        return $this->render('voyage/displayVoyageUser.html.twig', [
+            'voyage'=>$voyage]);
+    }
+
+    /**
      * @Route("DeleteVoyage/{id}",name="DeleteVoyage")
      */
     function DeleteVoyage($id)

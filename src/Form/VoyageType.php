@@ -18,13 +18,12 @@ class VoyageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('localisation',TextType::class,['label' => 'Votre destination :'])
-            ->add('description')
-            ->add('Prix',NumberType::class)
             ->add('Vol',EntityType::class,[
                 'class' => Vol::class,
-                'choice_label'=> 'num_vol',
+                'choice_label'=> 'destination',
             ])
+            ->add('description')
+            ->add('Prix',NumberType::class)
             ->add('Submit',SubmitType::class)
 
         ;

@@ -1,6 +1,6 @@
-{% extends 'base.html.twig' %}
+{% extends 'baseBack.html.twig' %}
 {% block body %}
-    <table>
+    <table class="table table-striped">
         <thead>
         <th>  </th>
         <th>Numero du vol</th>
@@ -22,14 +22,14 @@
                 <td>{{ vol.getTypeVol() }}</td>
                 <td>{{ vol.getCompagnie().nom }}</td>
                 <td> <img src="{{ asset('Uploads/Image/'~vol.getCompagnie().Logo) }}" width="70"> </td>
-                <td><a href="{{ path('DeleteVol',{'id':vol.id}) }}">Delete</a> <br>
-                    <a href="{{ path('modifierVol',{'id':vol.id}) }}">Modifier</a>
-                </td>
+                <td>  <a class="btn btn-success" href="{{ path('modifierVol',{'id':vol.id}) }}">Modifier</a></td>
+                <td><a class="btn btn-warning" href="{{ path('DeleteVol',{'id':vol.id}) }}">Delete</a></td> <br>
+
             </tr>
         {% endfor %}
 
     </table>
-    <a href="{{ path('AddVol') }}">Ajouter une nouvelle Vol</a>
+    <a class="btn btn-primary" href="{{ path('AddVol') }}">Ajouter une nouvelle Vol</a>
 
 
 

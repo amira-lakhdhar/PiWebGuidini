@@ -22,7 +22,7 @@ class CompagnieaerienneType extends AbstractType
             ->add('Logo', FileType::class, array('data_class' => null))
             ->add('Logo', FileType::class, array('data_class' => null,'required'=>true))
             ->add('Confirmer',SubmitType::class)
-            ->add('cancel',ResetType::class)
+
         ;
     }
 

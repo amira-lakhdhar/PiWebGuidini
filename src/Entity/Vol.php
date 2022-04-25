@@ -6,6 +6,8 @@ use App\Repository\VolRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * @ORM\Entity(repositoryClass=VolRepository::class)
@@ -20,21 +22,26 @@ class Vol
     private $id;
 
     /**
+     * @Assert\NotBlank(message="Numero de vol is required")
      * @ORM\Column(type="integer")
      */
     private $num_vol;
 
     /**
+     * @Assert\Date()
+     * @Assert\GreaterThan("today",message="Date is not valid")
      * @ORM\Column(type="datetime")
      */
     private $date_vol;
 
     /**
+     * @Assert\NotBlank(message="Destination is required")
      * @ORM\Column(type="string", length=255)
      */
     private $destination;
 
     /**
+     * @Assert\NotBlank(message="Ville de Depart is required")
      * @ORM\Column(type="string", length=255)
      */
     private $ville_depart;

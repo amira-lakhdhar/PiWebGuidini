@@ -19,7 +19,8 @@ class VolType extends AbstractType
         $builder
             ->add('num_vol')
             ->add('date_vol',DateType::class,[
-                'widget' => 'single_text'
+                'widget' => 'single_text',
+                'data' => new \DateTime("now")
             ])
             ->add('destination')
             ->add('ville_depart')

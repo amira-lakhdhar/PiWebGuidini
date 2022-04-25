@@ -1,10 +1,53 @@
-{% extends 'base.html.twig' %}
+{% extends 'baseBack.html.twig' %}
 
 
 {% block body %}
 
-    {{ form_start(f) }}
+    {{ form_start(f,{attr:{novalidate:'novalidate'}}) }}
+    <div class="row mb-3">
+        <label for="inputText" class="col-sm-4 col-form-label">Numero de Vol</label>
+        <div class="col-sm-10">
+            {{ form_widget(f.num_vol,{'att':'form-control'}) }}
+            {{ form_errors(f.num_vol,{'att':'text-danger'}) }}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="inputText" class="col-sm-4 col-form-label">Date Vol</label>
+        <div class="col-sm-10">
+            {{ form_widget(f.date_vol,{'att':'form-control'}) }}
+            {{ form_errors(f.date_vol,{'att':'text-danger'}) }}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="inputText" class="col-sm-4 col-form-label">Destination</label>
+        <div class="col-sm-10">
+            {{ form_widget(f.destination,{'att':'form-control'}) }}
+            {{ form_errors(f.destination,{'att':'text-danger'}) }}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="inputText" class="col-sm-4 col-form-label">ville depart</label>
+        <div class="col-sm-10">
+            {{ form_widget(f.ville_depart,{'att':'form-control'}) }}
+            {{ form_errors(f.ville_depart,{'att':'text-danger'}) }}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="inputText" class="col-sm-4 col-form-label">Type vol</label>
+        <div class="col-sm-10">
+            {{ form_widget(f.type_vol,{'att':'form-control'}) }}
+            {{ form_errors(f.type_vol,{'att':'text-danger'}) }}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="inputText" class="col-sm-4 col-form-label">Compagnie</label>
+        <div class="col-sm-10">
+            {{ form_widget(f.Compagnie,{'att':'form-control'}) }}
+            {{ form_errors(f.Compagnie,{'att':'text-danger'}) }}
+        </div>
+    </div>
+
     {{ form_end(f) }}
-    <a href="{{ path('ConsulterVol') }}">Back to Vol List</a>
+    <a class="btn btn-primary" href="{{ path('ConsulterVol') }}">Back to Vols List</a>
 
 {% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+    <center> <h1>Voyage</h1></center>
+
+    <div class="row" style="padding: 10px; margin-top: 10px;margin-left: 20px;margin-right: 20px; padding-bottom: 10px; padding-top: 10px;">
+        {% for voyage in voyages %}
+            <div class="col-sm-3">
+                <div class="card">
+                    <img src="{{ asset('Uploads/Image/'~voyage.getVol().getCompagnie().Logo) }}" style="width:100%; border-radius: 5px 5px 0 0;"  width="250"
+                         height="200">
+                    <div class="container" >
+                        <h4><b>{{voyage.getVol().getDestination() }}</b></h4>
+                        <p>{{ voyage.Prix }} $<br>
+                            <b>Numero de Vol : </b> {{ voyage.getVol().getNumVol() }}<br>
+                            <b>Vers : </b> {{ voyage.getVol().getVilleDepart() }}<br>
+                            <b>Company Name :</b>{{ voyage.getVol().getCompagnie().nom }}
+                        </p>
+                        <a class="btn btn-primary" href="{{ path('ConsulterVoyageUser',{'id':voyage.id}) }}">Voir Plus</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

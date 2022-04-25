@@ -6,6 +6,8 @@ use App\Repository\CompagnieaerienneRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * @ORM\Entity(repositoryClass=CompagnieaerienneRepository::class)
@@ -20,16 +22,26 @@ class Compagnieaerienne
     private $id;
 
     /**
+     * @Assert\NotBlank(message="Name should not be empty")
+     * @Assert\Length(
+     *     min=3,
+     *     minMessage ="Le nom de la Compagnie est trop court")
      * @ORM\Column(type="string", length=255)
      */
     private $Nom;
 
     /**
+     * @Assert\NotBlank(message="Email should not be empty")
+     * @Assert\Email(message="l'email doit avoir cette forme exp@gmail.com")
      * @ORM\Column(type="string", length=255)
      */
     private $Email;
 
     /**
+     * @Assert\NotBlank(message="Contact should not be empty")
+     * @Assert\Length(
+     *     min=3,
+     *     minMessage ="Le Contact de la Compagnie est trop court")
      * @ORM\Column(type="string", length=255)
      */
     private $Contact;
@@ -40,6 +52,7 @@ class Compagnieaerienne
     private $vols;
 
     /**
+     * @Assert\NotBlank(message="Logo should not be empty")
      * @ORM\Column(type="string", length=255)
      */
     private $Logo;

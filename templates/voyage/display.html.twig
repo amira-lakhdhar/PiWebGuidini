@@ -1,6 +1,7 @@
-{% extends 'base.html.twig' %}
+{% extends 'baseBack.html.twig' %}
 {% block body %}
-    <table>
+    <centre><h1>List Des voyages </h1></centre>
+    <table class="table table-striped">
         <thead>
         <th>  </th>
         <th>Voyage à </th>
@@ -16,8 +17,8 @@
         </thead>
         {% for voyage in voyages %}
             <tr>
-                <td>  </td>
-                <td>{{ voyage.localisation }}</td>
+                <td></td>
+                <td>{{ voyage.getVol().getDestination() }} </td>
                 <td>{{ voyage.description}}</td>
                 <td>{{ voyage.Prix }} $</td>
                 <td>{{ voyage.getVol().getNumVol() }}</td>
@@ -26,14 +27,15 @@
                 <td>{{ voyage.getVol().getDateVol() |date('d-m-Y')}}</td>
                 <td>{{ voyage.getVol().getCompagnie().nom }}</td>
                 <td> <img src="{{ asset('Uploads/Image/'~voyage.getVol().getCompagnie().Logo) }}" width="70"> </td>
-                <td><a href="{{ path('DeleteVoyage',{'id':voyage.id}) }}">Delete</a> <br>
-                    <a href="{{ path('ModifierVoyage',{'id':voyage.id}) }}">Modifier</a>
+                <td> <a class="btn btn-success" href="{{ path('ModifierVoyage',{'id':voyage.id}) }}">Modifier</a></td>
+                <td><a class="btn btn-danger" href="{{ path('DeleteVoyage',{'id':voyage.id}) }}">Delete</a> <br>
+
                 </td>
             </tr>
         {% endfor %}
 
     </table>
-    <a href="{{ path('AjouterVoyage') }}">Ajouter une nouvelle Voyage</a>
+    <a class="btn btn-primary" href="{{ path('AjouterVoyage') }}">Ajouter une nouvelle Voyage</a>
 
 
 
