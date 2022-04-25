@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\DoctorRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=DoctorRepository::class)
@@ -18,26 +19,40 @@ class Doctor
     private $id;
 
     /**
+     * @Assert\NotBlank(message="Name should not be empty")
+     * @Assert\Length(
+     *     min=3,
+     *     max= 30,
+     *     minMessage ="Name should be >=3")
      * @ORM\Column(type="string", length=255)
      */
     private $name;
 
     /**
+     * @Assert\NotBlank(message="location should not be empty")
      * @ORM\Column(type="string", length=255)
      */
     private $location;
 
     /**
+     * @Assert\NotBlank(message="Speciality should not be empty")
      * @ORM\Column(type="string", length=255)
      */
     private $speciality;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Phone should not be empty")
+     * @Assert\Length(
+     *     min = 8,
+     *     max = 8,
+     *     minMessage= "Phone number is too short",
+     *     maxMessage="Phone number is too long")
+     * @ORM\Column(type="integer")
      */
     private $phone;
 
     /**
+     * @Assert\NotBlank(message="Image should not be empty")
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $Image;

@@ -75,6 +75,18 @@ class DoctorController extends AbstractController
             'doctors'=>$doctors]);
 
     }
+    /**
+     * @Route("/DisplayDoctorUser", name="DisplayDoctorUser")
+     */
+    public function displayDoctorsUser(): Response
+    {
+        $doctors = $this->getDoctrine()->getManager()->getRepository(Doctor::class)->findAll();
+
+
+        return $this->render('doctor/displayUser.html.twig', [
+            'doctors'=>$doctors]);
+
+    }
 
     /**
      * @Route("deletedoctor/{id}",name="deletedoctor")

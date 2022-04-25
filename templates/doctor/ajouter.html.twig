@@ -1,8 +1,67 @@
-{% extends 'base.html.twig' %}
+{% extends 'baseBack.html.twig' %}
 
 {% block title %}Hello Doctor!{% endblock %}
 
 {% block body %}
-    {{ form_start(f) }}
+    <div style="display: flex; align-items: center; justify-content: center; margin-top: 0px; padding: 10px;">
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Add a doctor</h5>
+            {{ form_start(f,{attr:{novalidate:'novalidate'}}) }}
+            <div class="row mb-3">
+               <label for="inputText" class="col-sm-4 col-form-label">Name</label>
+                <div class="col-sm-10">
+                    {{ form_widget(f.name,{'att':'form-control'}) }}
+                    {{ form_errors(f.name,{'att':'text-danger'}) }}
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="inputText" class="col-sm-4 col-form-label">Location</label>
+                <div class="col-sm-10">
+                    {{ form_widget(f.location,{'att':'form-control'}) }}
+                    {{ form_errors(f.location,{'att':'text-danger'}) }}
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="inputText" class="col-sm-4 col-form-label">Speciality</label>
+                <div class="col-sm-10">
+                    {{ form_widget(f.speciality,{'att':'form-control'}) }}
+                    {{ form_errors(f.speciality,{'att':'text-danger'}) }}
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="inputText" class="col-sm-4 col-form-label">Phone</label>
+                <div class="col-sm-10">
+                    {{ form_widget(f.phone,{'att':'form-control'}) }}
+                    {{ form_errors(f.phone,{'att':'text-danger'}) }}
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="inputText" class="col-sm-4 col-form-label">Photo </label>
+                <div class="col-sm-10">
+                    {{ form_widget(f.Image,{'att':'form-control'}) }}
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="inputText" class="col-sm-4 col-form-label">Hospital </label>
+                <div class="col-sm-10">
+                    {{ form_widget(f.id_hospital,{'att':'form-control'}) }}
+                </div>
+            </div>
+
+
+            {{ form_end(f) }}
+        </div>
+    </div>
+    </div>
+
     {{ form_end(f) }}
+    <a href="{{ path('DisplayDoctor') }}">Back to Doctors List</a>
+
 {% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello DoctorController!{% endblock %}
+
+{% block body %}
+<center> <h1>Doctors</h1></center>
+
+<div class="row" style="padding: 10px; margin-top: 10px;margin-left: 20px;margin-right: 20px; padding-bottom: 10px; padding-top: 10px;">
+    {% for doctor in doctors %}
+    <div class="col-sm-3">
+        <div class="card">
+            <img src="{{ asset('Uploads/Image/'~doctor.Image) }}" style="width:100%; border-radius: 5px 5px 0 0;"  width="250"
+                 height="200">
+            <div class="container" >
+                <h4><b>{{ doctor.name }}</b></h4>
+                <p>{{ doctor.location }}<br>
+                    <b>Speciality : </b> {{ doctor.speciality }}<br>
+                    <b>Phone Number : </b> {{ doctor.phone }}<br>
+                    <b>Place of Work : </b> {{ doctor.getIdHospital().name }}
+
+                </p>
+            </div>
+        </div>
+    </div>
+                {% endfor %}
+    </div>
+
+{% endblock %}

@@ -1,11 +1,14 @@
-{% extends 'base.html.twig' %}
+{% extends 'baseBack.html.twig' %}
 
 {% block title %}Hello HospitalController!{% endblock %}
 
 {% block body %}
-    <table>
+    <div style="display: flex; align-items: center; justify-content: center; margin-top: 10px; padding: 10px;">
+
+    <h1> <centre>List Pharmacy</centre></h1>
+    <table class="table table-striped">
         <thead>
-        <th>  </th>
+
         <th>Name</th>
         <th>Location</th>
         <th>Hourly</th>
@@ -15,21 +18,21 @@
         </thead>
         {% for pharmacy in pharmacies %}
         <tr>
-            <td>  </td>
+
             <td>{{ pharmacy.name }}</td>
             <td>{{ pharmacy.location }}</td>
             <td>{{ pharmacy.hourly }}</td>
             <td>{{ pharmacy.phone }}</td>
             <td>{{ pharmacy.email }}</td>
-            <td><a href="{{ path('DeletePharmacy',{'id':pharmacy.id}) }}">Delete</a> <br>
-                <a href="{{ path('modiferpharmacy',{'id':pharmacy.id}) }}">Modifier</a>
-            </td>
+
+            <td> <a class="btn btn-success" href="{{ path('modiferpharmacy',{'id':pharmacy.id}) }}">Modifier</a></td>
+            <td><a class="btn btn-warning" href="{{ path('DeletePharmacy',{'id':pharmacy.id}) }}">Delete</a></td>
         </tr>
         {% endfor %}
 
     </table>
     <a href="{{ path('AddPharmacy') }}">Add A new Pharmacy</a>
 
-
+    </div>
 
 {% endblock %}

@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -21,7 +22,7 @@ class DoctorType extends AbstractType
             ->add('name')
             ->add('location')
             ->add('speciality')
-            ->add('phone')
+            ->add('phone',TextType::class)
             ->add('Image', FileType::class, array('data_class' => null))
             ->add('Image', FileType::class, array('data_class' => null,'required' => true))
             ->add('id_hospital',EntityType::class,[
@@ -29,7 +30,7 @@ class DoctorType extends AbstractType
                 'choice_label' => 'name',
             ])
             ->add('Ajouter',SubmitType::class)
-            ->add('Cancel',ResetType::class);
+
         ;
     }
 

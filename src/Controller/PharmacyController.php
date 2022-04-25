@@ -54,7 +54,18 @@ class PharmacyController extends AbstractController
 
         return $this->render('pharmacy/display.html.twig', [
             'pharmacies'=>$pharmacy]);
+    }
 
+    /**
+     * @Route("/DisplayPharmacyUser", name="DisplayPharmacyUser")
+     */
+    public function displayPharmacyUser(): Response
+    {
+        $pharmacy = $this->getDoctrine()->getManager()->getRepository(Pharmacy::class)->findAll();
+
+
+        return $this->render('pharmacy/displayUser.html.twig', [
+            'pharmacies'=>$pharmacy]);
     }
 
     /**

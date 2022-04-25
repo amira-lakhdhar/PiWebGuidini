@@ -25,8 +25,8 @@ class PharmacyType extends AbstractType
             ]])
             ->add('phone')
             ->add('email',EmailType::class)
-            ->add('Ajouter',SubmitType::class)
-            ->add('cancel',ResetType::class);
+            ->add('Ajouter',SubmitType::class);
+
 
     }
 

@@ -6,6 +6,8 @@ use App\Repository\HosiptalRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * @ORM\Entity(repositoryClass=HosiptalRepository::class)
@@ -20,26 +22,41 @@ class Hospital
     private $id;
 
     /**
+     * @Assert\NotBlank(message="Name should not be empty")
+     * @Assert\Length(
+     *     min=3,
+     *     max= 30,
+     *     minMessage ="Name should be >=3")
      * @ORM\Column(type="string", length=255)
      */
     private $name;
 
     /**
+     * @Assert\NotBlank(message="location should not be empty")
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $location;
 
     /**
+     * @Assert\NotBlank(message="Score should not be Null")
      * @ORM\Column(type="integer")
      */
     private $score;
 
     /**
+     * @Assert\NotBlank(message="Phone should not be empty")
+     *  @Assert\Length(
+     *     min = 8,
+     *     max = 8,
+     *     minMessage= "Phone number is too short",
+     *     maxMessage="Phone number is too long")
      * @ORM\Column(type="string", length=255)
      */
     private $phone;
 
     /**
+     * @Assert\NotBlank(message="Email should not be empty")
+     * @Assert\Email(message="Your email should be exp@gmail.com")
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $email;

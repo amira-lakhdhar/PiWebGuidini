@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello DoctorController!{% endblock %}
+
+{% block body %}
+    <center> <h1>Pharmacies :</h1></center>
+
+    <div class="row" style="padding: 10px; margin-top: 10px;margin-left: 20px;margin-right: 20px; padding-bottom: 10px; padding-top: 10px;">
+        {% for pharmacy in pharmacies %}
+            <div class="col-sm-3">
+                <div class="card">{% if pharmacy.hourly =="Day" %}
+                    <img src="{{ asset('Uploads/Image/day.jpg') }}" style="width:100%; border-radius: 5px 5px 0 0;"  width="250"
+                         height="200" >
+                    {% else %}
+                        <img src="{{ asset('Uploads/Image/night.jpg') }}" style="width:100%; border-radius: 5px 5px 0 0;"  width="250"
+                             height="200" >
+                        {% endif %}
+                    <div class="container">
+                        <h4><b>{{ pharmacy.name }}</b></h4>
+                        <p>{{ pharmacy.location }}<br>
+                            <b>Speciality : </b> {{ pharmacy.hourly }}<br>
+                            <b>Phone Number : </b> {{ pharmacy.phone }}<br>
+                            <b>Email : {{ pharmacy.email }}</b>
+
+                        </p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}
