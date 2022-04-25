@@ -3,18 +3,35 @@
 {% block title %}Hello EvenementController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    
+    <div class="col-sm-10" style="text-align: center">
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+            <img src="{{ asset('Uploads/Image/'~event.Image) }}" style="width:80%; border-radius: 5px 5px 0 0;">
+            <div class="container" >
+                <div class="title" style="text-align: left"><h1><b>{{ event.nom }}</b></h1>
+                <p>{{ event.Date |date('d-m-Y')}} in {{ event.localisation }}<br>
+                    {{ event.Type }}
+                    <br>Offre : {{ event.getOffre().nom }}</p>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/Toumi/Desktop/Esprit/Symfony/Chaima/MonProjet/src/Controller/EvenementController.php'|file_link(0) }}">src/Controller/EvenementController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/Toumi/Desktop/Esprit/Symfony/Chaima/MonProjet/templates/evenement/index.html.twig'|file_link(0) }}">templates/evenement/index.html.twig</a></code></li>
-    </ul>
-</div>
+                {% if event.getOffre().Pourcentage==0 %}
+                    <p class="price" style="color: grey;font-size: 22px;"> <centre>Prix :{{ event.Prix }}$</centre></p>
+                {% else %}
+                    <p class="price" style="color: grey;font-size: 22px;"> <centre> Prix :{{ event.Prix*event.getOffre().Pourcentage/100 }}$</centre></p>
+                {% endif %}
+
+                <div class="discription" style="font-size: 20px">
+                    <b> Description :</b><br>{{ event.Description }}
+                </div></div>
+
+                {% if reservation is empty %}
+                    <p><a href="{{ path('AjouterReservation',{'id_event':event.id}) }}">Reserver</a></p>
+                {% else %}
+                    <p> Déja Réserver    <a class="btn btn-primary" href="{{ path('ShowEvenementUser')}}">Retour </a></p>
+                    
+                        {% endif %}
+
+
+            </div>
+        </div>
+
 {% endblock %}

@@ -1,8 +1,12 @@
-{% extends 'base.html.twig' %}
+{% extends 'baseBack.html.twig' %}
 
 {% block body %}
     <center> <h1>List des Evenements</h1></center>
-    <table>
+    <a href="{{ path('AjouterEvenement') }}">Add A new Evenement</a>
+    <div style="display: flex; align-items: center; justify-content: center; margin-top: 10px; padding: 10px;">
+
+
+    <table class="table table-striped">
         <thead>
         <th></th>
         <th>Nom evenement</th>
@@ -25,19 +29,25 @@
                 {% if event.getOffre().Pourcentage==0 %}
                 <td>{{ event.Prix }}$</td>
                 {% else %}
-                    <td>{{ event.Prix/event.getOffre().Pourcentage }}$</td>
+                    <td>{{ event.Prix*event.getOffre().Pourcentage/100 }}$</td>
                  {% endif %}
                 <td>{{ event.getOffre().nom }}</td>
 
-                <td><a href="{{ path('deleteEvenement',{'id':event.id}) }}">Delete</a> <br>
-                    <a href="{{ path('modifierEvenement',{'id':event.id}) }}">Modifier</a>
+                <td><a class="btn btn-danger" href="{{ path('deleteEvenement',{'id':event.id}) }}">Delete</a></td>
+                   <td> <a class="btn btn-success" href="{{ path('modifierEvenement',{'id':event.id}) }}">Modifier</a>
                 </td>
             </tr>
 
         {% endfor %}
     </table>
 
-    <a href="{{ path('AjouterEvenement') }}">Add A new Evenement</a>
+
+    </div>
+    <!--pagination-->
+    <div class="d-flex justify-content-center">
+        {{ knp_pagination_render(events, 'evenement/pagination.html.twig')}}
+    </div>
+
 
 
 

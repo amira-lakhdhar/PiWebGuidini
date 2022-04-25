@@ -2,7 +2,12 @@
 
 {% block body %}
     <center> <h1>Mes reservations</h1></center>
-    <table>
+    <div style="display: flex; align-items: center; justify-content: center; margin-top: 10px; padding: 10px;">
+
+    <div class="card">
+    <div class="card-body">
+
+    <table class="table table-striped">
         <thead>
         <th></th>
         <th> Nom evenement</th>
@@ -11,7 +16,8 @@
         <th>Localisation</th>
         <th>Prix</th>
 
-        <th>Actions</th>
+        <th>Offre</th>
+        <th></th>
         </thead>
 
         {% for reservation in reservations %}
@@ -29,12 +35,15 @@
                 <td>{{ reservation.getIdEvenement().getOffre().nom }}</td>
 
 
-                <td><a href="{{ path('deletereservation',{'id':reservation.id}) }}">Cancel Reservation</a> <br>
+                <td><a class="btn btn-danger" href="{{ path('deletereservation',{'id':reservation.id}) }}">Cancel Reservation</a> <br>
                 </td>
             </tr>
 
         {% endfor %}
     </table>
+    </div>
+    </div>
+    </div>
 
 
 
