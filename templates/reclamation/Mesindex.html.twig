@@ -1,4 +1,4 @@
-{% extends 'baseBack.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}Reclamation index{% endblock %}
 
@@ -23,7 +23,11 @@
                 <td>{{ reclamation.type }}</td>
                 <td>{{ reclamation.titre }}</td>
                 <td>
-                    <a class="btn btn-success" href="{{ path("recreclamationShowAdmin",{'id': reclamation.id}) }}">show</a>
+
+                    <a class="btn btn-success" href="{{ path('recreclamationShow', {'id': reclamation.id}) }}">show</a>
+                    <a class="btn btn-success" href="{{ path('recreclamationEdit', {'id': reclamation.id}) }}">Edit</a>
+                    <a class="btn btn-danger" href="{{ path('recreclamationDelete', {'id': reclamation.id}) }}">Delete</a>
+
                 </td>
             </tr>
         {% else %}

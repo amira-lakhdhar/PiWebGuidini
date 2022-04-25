@@ -3,12 +3,11 @@
 {% block title %}New User{% endblock %}
 
 {% block body %}
-    <h1>Create new User</h1>
+    <h1>Login User</h1>
 
     {{ form_start(form) }}
     {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    <button class="btn">{{ button_label|default('Log In') }}</button>
     {{ form_end(form) }}
 
-    <a href="{{ path('usruser') }}">back to list</a>
 {% endblock %}

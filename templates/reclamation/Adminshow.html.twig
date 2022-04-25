@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'baseBack.html.twig' %}
 
 {% block title %}Reclamation{% endblock %}
 
@@ -26,9 +26,5 @@
         </tbody>
     </table>
 
-    <a class="btn btn-success" href="{{ path('recMesreclamation') }}">back to list</a>
-
-    <a class="btn btn-success" href="{{ path('recreclamationEdit', {'id': reclamation.id}) }}">edit</a>
-
-    <a class="btn btn-danger" href="{{ path('recreclamationDelete', {'id': reclamation.id}) }}">delete</a>
+    <a class="btn btn-success" href="{{ path('recreclamation') }}">back to list</a>
 {% endblock %}

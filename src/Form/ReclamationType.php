@@ -6,6 +6,7 @@ use App\Entity\Reclamation;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,14 +16,14 @@ class ReclamationType extends AbstractType
     {
         $builder
             ->add('message')
-            ->add('type')
-            ->add('Titre')
-            ->add('User', EntityType::class,
-            [
-                'class'                 => User::class,
-                'choice_label'          => 'nom',
-                'multiple'              => false,
+            ->add('type', ChoiceType::class, [
+                'choices'  => [
+                    'Technical' => 'Technical',
+                    'Comercial' => 'Comercial',
+                    'Other' => 'Other',
+                ],
             ])
+            ->add('Titre')
         ;
     }
 
