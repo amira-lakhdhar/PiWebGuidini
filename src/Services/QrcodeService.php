@@ -30,7 +30,7 @@ class QrcodeService
         $objDateTime = new \DateTime('NOW');
         $dateString = $objDateTime->format('d-m-Y H:i:s');
 
-        $path = 'C:\Users\Toumi\Desktop\Esprit\Symfony\Chaima\Pi\public\QrCode';
+        $path ='D:\New folder\PiWebGuidini\public\QrCode';
 
         // set qrcode
         $qrcode->setEncoding('UTF-8');

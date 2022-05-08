@@ -27,7 +27,7 @@ class EvenementController extends AbstractController
 
 
     /**
-     * @Route("/AjouterEvenement", name="AjouterEvenement")
+     * @Route("/AjouterEvenement/admin", name="AjouterEvenement")
      */
     public function addEvenement(Request $request): Response
     {
@@ -72,7 +72,7 @@ class EvenementController extends AbstractController
     }
 
     /**
-     * @Route("/ShowEvenement", name="ShowEvenement")
+     * @Route("/ShowEvenement/admin", name="ShowEvenement")
      */
     public function showEvenement(Request $request,PaginatorInterface $paginator): Response
     {
@@ -89,7 +89,7 @@ class EvenementController extends AbstractController
     }
 
     /**
-     * @Route("/ShowETopvenement", name="ShowETopvenement")
+     * @Route("/ShowETopvenement/admin", name="ShowETopvenement")
      */
     public function showTopEvenement(ReservationRepository $repository): Response
     {
@@ -103,7 +103,7 @@ class EvenementController extends AbstractController
 
 
     /**
-     * @Route("/showevent/{id}", name="showevent")
+     * @Route("/showevent/{id}/user", name="showevent")
      */
     public function showevent($id,Request $request): Response
     {
@@ -139,7 +139,7 @@ class EvenementController extends AbstractController
     }
 
     /**
-     * @Route("/ShowEvenementUser", name="ShowEvenementUser")
+     * @Route("/ShowEvenementUser/user", name="ShowEvenementUser")
      */
     public function showEvenementuser(Request $request,EvenementRepository $evenementRepository): Response
     {
@@ -194,7 +194,7 @@ class EvenementController extends AbstractController
 
 
     /**
-     * @Route("deleteEvenement/{id}",name="deleteEvenement")
+     * @Route("deleteEvenement/{id}/admin",name="deleteEvenement")
      */
     function DeleteEvenement($id)
     {
@@ -207,7 +207,7 @@ class EvenementController extends AbstractController
     }
 
     /**
-     * @Route("modifierEvenement/{id}",name="modifierEvenement")
+     * @Route("modifierEvenement/{id}/admin",name="modifierEvenement")
      */
     function modifier ($id,Request $request)
     {
@@ -247,7 +247,7 @@ class EvenementController extends AbstractController
     }
 
     /**
-     * @Route("/imprimer_prod", name="imprimer_prod")
+     * @Route("/imprimer_prod/user", name="imprimer_prod")
      */
 
     public function imprimeprod(EvenementRepository $EvenementRepository): Response
@@ -280,7 +280,7 @@ class EvenementController extends AbstractController
     }
 
     /**
-     * @Route("/eventcalendar", name="eventcalendar")
+     * @Route("/eventcalendar/admin", name="eventcalendar")
      */
     public function calendar(EvenementRepository $repository): Response
     {

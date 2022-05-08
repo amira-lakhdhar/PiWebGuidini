@@ -22,7 +22,7 @@ security:
                     path: security_logout
                     target: security_home
     access_control:
-        - { path: ^/admin, roles: ROLE_ADMIN }
-        - { path: ^/user, roles: ROLE_USER }
+        - { path: ^/admin, roles: [ROLE_ADMIN] }
+        - { path: ^/user, roles: [ROLE_USER] }
 
 

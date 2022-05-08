@@ -1,13 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Edit User{% endblock %}
-<<<<<<< HEAD
 {% block image %}
     <img src="{{ asset('uploads/'~ user.Photo) }}" alt="" style="width:50px;height:50px">
 {% endblock%}
-=======
-
->>>>>>> 884436c794d2793b01dfb6da78223d4abf31561c
 {% block body %}
     <h1>Edit User</h1>
 
@@ -16,7 +12,5 @@
     <button class="btn">{{ button_label|default('Update') }}</button>
     {{ form_end(form) }}
 
-    <a href="{{ path('user') }}">back to list</a>
 
-    <a href="{{ path('userDelete', {'id': user.id}) }}">delete</a>
 {% endblock %}

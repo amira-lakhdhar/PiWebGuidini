@@ -14,7 +14,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @UniqueEntity(
  *     fields={"email"},
- *     message="L'email que vous avais indiquÃŠ  est dÃŠjÃ  utilisÃŠ !"
+ *     message="L'email que vous avais indiqué  est déjà utilisé !"
  * )
  */
 class User implements UserInterface
@@ -30,10 +30,10 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="nom should not be empty !!")
      * @Assert\Length(
-     *     min=3,
+     *     min=5,
      *     max= 20,
-     *     minMessage ="Name should be >=3",
-     *     maxMessage ="Name should be <=20")
+     *     minMessage ="nom should be >=3",
+     *     maxMessage ="nom should be <=20")
      */
     private $nom;
 
@@ -41,22 +41,27 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="prenom should not be empty !!")
      * @Assert\Length(
-     *     min=3,
+     *     min=5,
      *     max= 20,
-     *     minMessage ="Name should be >=3",
-     *     maxMessage ="Name should be <=20")
+     *     minMessage ="prenom should be >=3",
+     *     maxMessage ="prenom should be <=20")
      */
     private $prenom;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="adresse should not be empty !!")
-     *     maxMessage ="Name should be <=20")
+         * @ORM\Column(type="string", length=255)
+         * @Assert\NotBlank(message="adresse should not be empty !!")
+         * @Assert\Length(
+         *     min=5,
+         *     max= 20,
+         *     minMessage ="adresse should be >=3",
+         *     maxMessage ="adresse should be <=20")
      */
     private $adresse;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Email()
      */
     private $email;
 
@@ -67,27 +72,24 @@ class User implements UserInterface
     private $password;
 
     /**
+     * @Assert\EqualTo(propertyPath="Password",message="les deux mot de passe doit etre le meme")
+     */
+    public $Confirm_Password;
+
+    /**
      * @ORM\Column(type="boolean")
      */
     private $role;
 
     /**
-     * @ORM\OneToMany(targetEntity=Reclamation::class, mappedBy="User" , fetch="EAGER")
+     * @ORM\OneToMany(targetEntity=Reclamation::class, mappedBy="User")
      */
     private $reclamations;
 
     /**
-     * @Assert\EqualTo(propertyPath="Password",message="les deux mot de passe doit etre le meme")
+     * @ORM\Column(type="string", length=255)
      */
-    public $Confirm_Password;
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $role;
-
-
-
-
+    private $Photo;
 
     public function __construct()
     {
@@ -201,7 +203,6 @@ class User implements UserInterface
 
         return $this;
     }
-<<<<<<< HEAD
     public function getConfirm_Password(): ?string
     {
         return $this->Confirm_Password;
@@ -228,11 +229,25 @@ class User implements UserInterface
 
     public function getRoles()
     {
-        if($this->role){
+        if($this->role==false){
             return array('ROLE_USER');
-        }else{
+        }else if($this->role==true) {
             return array('ROLE_ADMIN');
         }
     }
 
+    public function getSalt()
+    {
+        // TODO: Implement getSalt() method.
+    }
+
+    public function getUsername()
+    {
+        // TODO: Implement getUsername() method.
+    }
+
+    public function eraseCredentials()
+    {
+        // TODO: Implement eraseCredentials() method.
+    }
 }

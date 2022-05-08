@@ -39,7 +39,7 @@ class SecurityController extends AbstractController
                 $image=$form->get('Photo')->getData();
                 $fichier=md5(uniqid()).'.'.$image->guessExtension();
                 $image->move(
-                    $this->getParameter('image_directory'),
+                    $this->getParameter('images_directory'),
                     $fichier
                 );
             }catch (FileException $e){
@@ -49,7 +49,7 @@ class SecurityController extends AbstractController
             $user->setPhoto($fichier);
             $entityManager->persist($user);
             $entityManager->flush();
-            $this->redirectToRoute("security_home");
+            return   $this->redirectToRoute("security_home");
         }
 
         return $this->render('security/signUp.html.twig',[
@@ -74,10 +74,15 @@ class SecurityController extends AbstractController
             $this->addFlash('login','Error Login');
         }
 
-        if(TRUE === $this->get('security.authorization_checker')->isGranted('ROLE_USER')){
-            return $this->redirectToRoute('security_home');
-        }if(TRUE === $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')){
+        if(TRUE === $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')){
+            dd($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN'));
             return $this->redirectToRoute('recreclamation');
+
+        }
+        if(TRUE === $this->get('security.authorization_checker')->isGranted('ROLE_USER')){
+            dd($this->get('security.authorization_checker')->isGranted('ROLE_USER'));
+            return $this->redirectToRoute('security_home');
+
         }
         return $this->render('security/login.html.twig');
     }
