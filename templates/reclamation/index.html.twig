@@ -5,33 +5,39 @@
 {% block body %}
     <h1>Reclamation index</h1>
 
-    <table class="table">
-        <thead>
-        <tr>
-            <th>user</th>
-            <th>message</th>
-            <th>type</th>
-            <th>titre</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for reclamation in reclamation %}
-            <tr>
-                <td>{{ reclamation.user.nom }} {{ reclamation.user.prenom }}</td>
-                <td>{{ reclamation.message }}</td>
-                <td>{{ reclamation.type }}</td>
-                <td>{{ reclamation.titre }}</td>
-                <td>
-                    <a class="btn btn-success" href="{{ path("recreclamationShowAdmin",{'id': reclamation.id}) }}">show</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
+    
+        <div id="all">
+        {% include 'reclamation/ajax.html.twig' %}
+        </div>        
+        
+        <script
+            src="{{ asset('https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js')}}">
+    </script>
+    <script>
+        $(document).ready(function() {
+            var currentRequest = null;
+            $("#advanced").keyup(function(e){
+                /* La variable value va prendre la valeur insérer dans le champ de texte
+                afin d’effectuer la recherche */
+                var value = $(this).val();
+                if(currentRequest != null) {
+                    currentRequest.abort();
+                }
+                /* Ajax est lancé lors du remplissage du champ texte dont l’id est
+                « search » pour faire la recherche */
+                currentRequest = $.ajax({
+                    url : "{{ path('recajaxReclamation') }}",
+                    type : 'GET',
+                    data: {
+                        'searchValue' : value
+                    },
+                    success : function(retour)
+                    {
+                        $('#all').html(retour);
+                    },
+                });
+                return false;
+            });
+        });
+    </script>
 {% endblock %}

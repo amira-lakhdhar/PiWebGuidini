@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\User;
+use Captcha\Bundle\CaptchaBundle\Form\Type\CaptchaType;
+use Captcha\Bundle\CaptchaBundle\Validator\Constraints\ValidCaptcha;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -28,6 +30,7 @@ class RegistrationFormType extends AbstractType
             ])
             ->add('password', PasswordType::class)
             ->add('Confirm_Password',PasswordType::class)
+
 
         ;
     }

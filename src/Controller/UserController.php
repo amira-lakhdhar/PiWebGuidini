@@ -52,7 +52,7 @@ class UserController extends AbstractController
         ]);
     }
     /**
-     * @Route("/user/{id}", name="userShow")
+     * @Route("/{id}/user", name="userShow")
      */
     public function show(User $user): Response
     {
@@ -131,28 +131,5 @@ class UserController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/signIn", name="signIn")
-     */
-    public function signIn(Request $request,UserRepository $repository): Response
-    {
-        $user = new User();
-        $form = $this->createForm(LoginType::class, $user);
-        $form->handleRequest($request);
-        if ($form->isSubmitted()) {
-            $user2=$repository->findOneBy(['email'=>$user->getEmail()]);
-            $user->setNom($user2->getNom());
-            $user->setAdresse($user2->getAdresse());
-            $user->setPrenom($user2->getPrenom());
-            $user->setRole($user2->getRole());
-            if ($user2 && $user->getPassword()==$user2->getPassword()) {
-                return $this->redirectToRoute('usruserEdit',['id'=>$user2->getId()]);
 
-            }
-        }
-        return $this->render('user/signIn.html.twig', [
-            'form' => $form->createView(),
-        ]);
-
-    }
 }

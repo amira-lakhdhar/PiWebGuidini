@@ -19,6 +19,7 @@ class UserType extends AbstractType
             ->add('adresse')
             ->add('email',EmailType::class)
             ->add('password', PasswordType::class)
+
         ;
     }
 

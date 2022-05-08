@@ -31,24 +31,22 @@ class ReclamationController extends AbstractController
     }
 
     /**
-     * @Route("/Mesreclamation", name="Mesreclamation")
+     * @Route("/Mesreclamation/{id}", name="Mesreclamation")
      */
-    public function MesIndex(ReclamationRepository $repository,UserRepository $userRepository): Response
+    public function MesIndex(User $user,ReclamationRepository $repository,UserRepository $userRepository): Response
     {
-        $user=$userRepository->find(2);
         return $this->render('reclamation/Mesindex.html.twig', [
             'reclamation' => $repository->findBy(['User'=>$user]),
         ]);
     }
 
     /**
-     * @Route ("/reclamation/Add", name="AddReclamation")
+     * @Route ("/reclamation/Add/{id}", name="AddReclamation")
      */
-    public function add(Request $request,UserRepository $userRepository): Response
+    public function add(User $user,Request $request,UserRepository $userRepository): Response
     {
         $reclamation = new Reclamation();
         $form = $this->createForm(ReclamationType::class, $reclamation);
-        $user=$userRepository->find(2);
         $reclamation->setUser($user);
         $form->handleRequest($request);
 
@@ -57,7 +55,7 @@ class ReclamationController extends AbstractController
             $entityManager->persist($reclamation);
             $entityManager->flush();
 
-            return $this->redirectToRoute('recMesreclamation');
+            return $this->redirectToRoute('recMesreclamation',['id'=>$user->getId()]);
         }
 
         return $this->render('reclamation/add.html.twig', [
@@ -96,7 +94,7 @@ class ReclamationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('recMesreclamation');
+            return $this->redirectToRoute('recMesreclamation',['id'=>$reclamation->getUser()->getId()]);
         }
 
         return $this->render('reclamation/edit.html.twig', [
@@ -106,7 +104,7 @@ class ReclamationController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="reclamationDelete")
+     * @Route("/del/{id}", name="reclamationDelete")
      */
     public function delete(Request $request, Reclamation $reclamation): Response
     {
@@ -116,6 +114,19 @@ class ReclamationController extends AbstractController
         $entityManager->flush();
 
 
-        return $this->redirectToRoute('recMesreclamation');
+        return $this->redirectToRoute('recMesreclamation',['id'=>$reclamation->getUser()->getId()]);
+    }
+
+    /**
+     * @Route("/searchReclamationajax", name="ajaxReclamation")
+     */
+    public function searchajax(Request $request ,ReclamationRepository $PartRepository)
+    {
+        $requestString=$request->get('searchValue');
+        $jeux = $PartRepository->findReclamationAjax($requestString);
+
+        return $this->render('reclamation/ajax.html.twig', [
+            "reclamation"=>$jeux,
+        ]);
     }
 }

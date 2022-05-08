@@ -17,7 +17,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *     message="L'email que vous avais indiqué  est déjà utilisé !"
  * )
  */
-class User
+class User implements UserInterface
 {
     /**
      * @ORM\Id
@@ -224,5 +224,29 @@ class User
         $this->Photo = $Photo;
 
         return $this;
+    }
+
+    public function getRoles()
+    {
+        if($this->role){
+            return array('ROLE_USER');
+        }else{
+            return array('ROLE_ADMIN');
+        }
+    }
+
+    public function getSalt()
+    {
+        // TODO: Implement getSalt() method.
+    }
+
+    public function getUsername()
+    {
+        // TODO: Implement getUsername() method.
+    }
+
+    public function eraseCredentials()
+    {
+        // TODO: Implement eraseCredentials() method.
     }
 }
