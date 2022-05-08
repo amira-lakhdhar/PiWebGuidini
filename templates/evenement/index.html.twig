@@ -3,8 +3,9 @@
 {% block title %}Hello EvenementController!{% endblock %}
 
 {% block body %}
-    
-    <div class="col-sm-10" style="text-align: center">
+<div class="row" style="padding: 10px; margin-top: 10px;margin-left: 20px;margin-right: 20px; padding-bottom: 10px; padding-top: 10px;">
+
+<div class="col-sm-10" style="text-align: center">
 
             <img src="{{ asset('Uploads/Image/'~event.Image) }}" style="width:80%; border-radius: 5px 5px 0 0;">
             <div class="container" >
@@ -21,17 +22,76 @@
 
                 <div class="discription" style="font-size: 20px">
                     <b> Description :</b><br>{{ event.Description }}
-                </div></div>
+                </div>
+                <div class="row">
+                    <div class="stars">
+                        {% if ratings==1 %}
+                            <i class="las la-star" data-value="1"></i>
+                            <i class="lar la-star" data-value="2"></i>
+                            <i class="lar la-star" data-value="3"></i>
+                            <i class="lar la-star" data-value="4"></i>
+                            <i class="lar la-star" data-value="5"></i>
+                        {% elseif ratings==2 %}
+                            <i class="las la-star" data-value="1"></i>
+                            <i class="las la-star" data-value="2"></i>
+                            <i class="lar la-star" data-value="3"></i>
+                            <i class="lar la-star" data-value="4"></i>
+                            <i class="lar la-star" data-value="5"></i>
+                        {% elseif ratings==3 %}
+                            <i class="las la-star" data-value="1"></i>
+                            <i class="las la-star" data-value="2"></i>
+                            <i class="las la-star" data-value="3"></i>
+                            <i class="lar la-star" data-value="4"></i>
+                            <i class="lar la-star" data-value="5"></i>
+                        {% elseif ratings==4 %}
+                            <i class="las la-star" data-value="1"></i>
+                            <i class="las la-star" data-value="2"></i>
+                            <i class="las la-star" data-value="3"></i>
+                            <i class="las la-star" data-value="4"></i>
+                            <i class="lar la-star" data-value="5"></i>
+                        {% elseif ratings ==5 %}
+                            <i class="las la-star" data-value="1"></i>
+                            <i class="las la-star" data-value="2"></i>
+                            <i class="las la-star" data-value="3"></i>
+                            <i class="las la-star" data-value="4"></i>
+                            <i class="las la-star" data-value="5"></i>
+                        {% else %}
+                            <i class="lar la-star" data-value="1"></i>
+                            <i class="lar la-star" data-value="2"></i>
+                            <i class="lar la-star" data-value="3"></i>
+                            <i class="lar la-star" data-value="4"></i>
+                            <i class="lar la-star" data-value="5"></i>
 
-                {% if reservation is empty %}
-                    <p><a href="{{ path('AjouterReservation',{'id_event':event.id}) }}">Reserver</a></p>
-                {% else %}
-                    <p> Déja Réserver    <a class="btn btn-primary" href="{{ path('ShowEvenementUser')}}">Retour </a></p>
-                    
                         {% endif %}
+                    </div>
 
+                </div>
 
+                {{ form_start(form1) }}
+                <div class="my-custom-class-for-errors">
+                    {{ form_errors(form1) }}
+                </div>
+                <div class="row">
+                    <div class="col" hidden>
+                        {{ form_widget(form1.rate) }}
+                    </div>
+
+                </div>
+
+                <button class="btn">{{ button_label|default('Save Rate') }}</button>
+                    {{ form_end(form1) }}
+
+                </div>
+                {% if event.getReserved()==1 %}
+                    <p> Déja Réserver <a class="btn btn-primary" href="{{ path('ShowEvenementUser')}}">Back </a></p>
+
+                {% else %}
+                    <p><a class="btn btn-success" href="{{ path('AjouterReservation',{'id_event':event.id,'iduser':iduser}) }}">Reserver</a>
+                        <a class="btn btn-primary" href="{{ path('ShowEvenementUser')}}">Back </a></p>
+                {% endif %}
             </div>
         </div>
+</div>
+
 
 {% endblock %}

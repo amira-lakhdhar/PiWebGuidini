@@ -1,8 +1,8 @@
 {% extends 'baseBack.html.twig' %}
 {% block body %}
-    <h2 class="card-title"> <centre>List Offre</centre></h2>
-
+    <h5 class="card-title"> <centre>List Offre</centre></h5>
     <div style="display: flex; align-items: center; justify-content: center; margin-top: 10px; padding: 10px;">
+
 
 
     <table class="table table-striped">
@@ -26,8 +26,8 @@
     </table>
 
 
-    </div>
 
-    <a class="btn btn-primary" href="{{ path('AddOffre') }}">Ajouter une nouvelle Offre</a>
+    </div>
+    <a href="{{ path('AddOffre') }}">Ajouter une nouvelle Offre</a>
 
 {% endblock %}

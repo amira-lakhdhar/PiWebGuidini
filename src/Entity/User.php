@@ -78,9 +78,12 @@ class User
 
 
 
+
+
     public function __construct()
     {
         $this->reclamations = new ArrayCollection();
+        $this->id_Doctor = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -172,4 +175,6 @@ class User
 
         return $this;
     }
+
+
 }

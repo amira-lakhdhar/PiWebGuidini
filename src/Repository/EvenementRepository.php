@@ -19,6 +19,18 @@ class EvenementRepository extends ServiceEntityRepository
         parent::__construct($registry, Evenement::class);
     }
 
+    public function FindEventByNamewithBiggestOffre(string $name)
+    {
+        $qb=$this->createQueryBuilder("e")
+            ->where('e.Nom LIKE :Nom')
+            ->join('e.Offre','o')
+            ->orderBy('o.Pourcentage','desc')
+            ->setParameter('Nom', '%'.$name.'%');
+
+        return $qb->getQuery()->getResult();
+
+    }
+
     // /**
     //  * @return Evenement[] Returns an array of Evenement objects
     //  */

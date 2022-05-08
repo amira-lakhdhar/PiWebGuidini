@@ -1,8 +1,10 @@
 {% extends 'baseBack.html.twig' %}
 
 {% block body %}
+
     <center> <h1>List des Evenements</h1></center>
     <a href="{{ path('AjouterEvenement') }}">Add A new Evenement</a>
+
     <div style="display: flex; align-items: center; justify-content: center; margin-top: 10px; padding: 10px;">
 
 
@@ -41,14 +43,12 @@
         {% endfor %}
     </table>
 
-
     </div>
+
     <!--pagination-->
     <div class="d-flex justify-content-center">
         {{ knp_pagination_render(events, 'evenement/pagination.html.twig')}}
     </div>
-
-
 
 
 {% endblock %}

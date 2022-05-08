@@ -3,37 +3,27 @@
 namespace App\Controller;
 
 use App\Entity\Evenement;
+use App\Entity\EventRate;
+use App\Entity\Recherche;
 use App\Entity\Reservation;
 use App\Entity\User;
 use App\Form\EvenementType;
+use App\Form\EventRateType;
+use App\Form\RechercheType;
 use App\Repository\EvenementRepository;
+use App\Repository\ReservationRepository;
 use Dompdf\Dompdf;
 use Dompdf\Options;
-
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Knp\Component\Pager\PaginatorInterface;
-
 
 class EvenementController extends AbstractController
 {
 
 
-    /**
-     * @Route("/showevent/{id}", name="showevent")
-     */
-    public function showevent($id ): Response
-    {
-        $event = $this->getDoctrine()->getManager()->getRepository(Evenement::class)->find($id);
-        $user=$this->getDoctrine()->getManager()->getRepository(User::class)->find(1);
-        $reservation=$this->getDoctrine()->getManager()->getRepository(Reservation::class)->findBy(['id_user'=>1,'id_evenement'=>$id]);
-
-        return $this->render('evenement/index.html.twig', [
-            'event' => $event,'user'=>$user,'reservation'=>$reservation
-        ]);
-    }
 
 
     /**
@@ -87,12 +77,11 @@ class EvenementController extends AbstractController
     public function showEvenement(Request $request,PaginatorInterface $paginator): Response
     {
         $events = $this->getDoctrine()->getManager()->getRepository(Evenement::class)->findAll();
-     //pagination
+        //pagination
         $events=$paginator->paginate(
             $events, //on passe les données
             $request->query->getInt('page', 1), //num de la page en cours, 1 par défaut
             3);//nbre d'articles par page
-
 
         return $this->render('evenement/show.html.twig', [
             'events'=>$events]);
@@ -100,13 +89,69 @@ class EvenementController extends AbstractController
     }
 
     /**
-         * @Route("/ShowEvenementUser", name="ShowEvenementUser")
+     * @Route("/ShowETopvenement", name="ShowETopvenement")
      */
-    public function showEvenementuser(): Response
+    public function showTopEvenement(ReservationRepository $repository): Response
     {
-        $user=$this->getDoctrine()->getManager()->getRepository(User::class)->find(1);
-        $reservations=$this->getDoctrine()->getManager()->getRepository(Reservation::class)->findBy(['id_user'=>1]);
+        $result=$repository->GetTop3Events();
         $events = $this->getDoctrine()->getManager()->getRepository(Evenement::class)->findAll();
+
+        return $this->render('evenement/showtop.html.twig', [
+            'events'=>$events,'result'=>$result]);
+
+    }
+
+
+    /**
+     * @Route("/showevent/{id}", name="showevent")
+     */
+    public function showevent($id,Request $request): Response
+    {
+        $iduser=1;
+        $event = $this->getDoctrine()->getManager()->getRepository(Evenement::class)->find($id);
+        $user=$this->getDoctrine()->getManager()->getRepository(User::class)->find($iduser);
+        $reservation=$this->getDoctrine()->getManager()->getRepository(Reservation::class)->findBy(['id_user'=>$iduser,'id_evenement'=>$id]);
+        if($reservation != null) {
+            $event->setReserved(1);
+        }
+        $rate = $this->getDoctrine()->getManager()->getRepository(EventRate::class)->findOneBy(['id_Event'=>$id,'id_user'=>$iduser]);
+        if($rate==null){
+            $rate = new EventRate();
+            $rate->setRate(0);
+        }
+        $form = $this->createForm(EventRateType::class, $rate);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user = $this->getDoctrine()->getManager()->getRepository(User::class)->find($iduser);
+            $rate->setIdUser($user);
+            $rate->setIdEvent($event);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($rate);
+            $em->flush();
+            return $this->redirectToRoute('showevent',['id'=>$id]);
+        }
+
+        return $this->render('evenement/index.html.twig', [
+            'event' => $event,'user'=>$user,'iduser'=>$iduser,'form1' => $form->createView(),'ratings'=>$rate->getRate()
+        ]);
+    }
+
+    /**
+     * @Route("/ShowEvenementUser", name="ShowEvenementUser")
+     */
+    public function showEvenementuser(Request $request,EvenementRepository $evenementRepository): Response
+    {
+        $iduser=1;
+        $filter=new Recherche();
+        $form = $this->createForm(RechercheType::class,$filter);
+        $form->handleRequest($request);
+        $user=$this->getDoctrine()->getManager()->getRepository(User::class)->find($iduser);
+        $reservations=$this->getDoctrine()->getManager()->getRepository(Reservation::class)->findBy(['id_user'=>$iduser]);
+        $events = $this->getDoctrine()->getManager()->getRepository(Evenement::class)->findAll();
+        $rating =$this->getDoctrine()->getManager()->getRepository(EventRate::class)->findAll();
+
         foreach ($reservations as $reservation) {
             foreach ($events as $event) {
                 if ($event->getId() == $reservation->getIdEvenement()->getId()) {
@@ -114,10 +159,39 @@ class EvenementController extends AbstractController
                 }
             }
         }
+        if ($form->isSubmitted() && $form->isValid()){
+            $nom=$filter->getNom();
+            if($nom!=""){
+                $events=$evenementRepository->FindEventByNamewithBiggestOffre($nom);
+                $user=$this->getDoctrine()->getManager()->getRepository(User::class)->find($iduser);
+                $reservations=$this->getDoctrine()->getManager()->getRepository(Reservation::class)->findBy(['id_user'=>$iduser]);
+                foreach ($reservations as $reservation) {
+                    foreach ($events as $event) {
+                        if ($event->getId() == $reservation->getIdEvenement()->getId()) {
+                            $event->setReserved(1);
+                        }
+                    }
+                }
+            }else{
+                $user=$this->getDoctrine()->getManager()->getRepository(User::class)->find($iduser);
+                $reservations=$this->getDoctrine()->getManager()->getRepository(Reservation::class)->findBy(['id_user'=>$iduser]);
+                $events = $this->getDoctrine()->getManager()->getRepository(Evenement::class)->findAll();
+                foreach ($reservations as $reservation) {
+                    foreach ($events as $event) {
+                        if ($event->getId() == $reservation->getIdEvenement()->getId()) {
+                            $event->setReserved(1);
+                        }
+                    }
+                }
+            }
+        }
         return $this->render('evenement/showuser.html.twig', [
-            'events'=>$events,'user'=>$user,'reservations'=>$reservations]);
+            'events'=>$events,'user'=>$user,'reservations'=>$reservations,
+            'form'=>$form->createView(),'iduser'=>$iduser,'rates'=>$rating]);
 
     }
+
+
 
     /**
      * @Route("deleteEvenement/{id}",name="deleteEvenement")
@@ -179,7 +253,7 @@ class EvenementController extends AbstractController
     public function imprimeprod(EvenementRepository $EvenementRepository): Response
 
     {
-       $pdfOptions = new Options();
+        $pdfOptions = new Options();
         $pdfOptions->set('defaultFont', 'Arial');
 
 
@@ -204,5 +278,44 @@ class EvenementController extends AbstractController
         return $this->redirectToRoute('imprimer_prod');
 
     }
-}
 
+    /**
+     * @Route("/eventcalendar", name="eventcalendar")
+     */
+    public function calendar(EvenementRepository $repository): Response
+    {
+
+        $rep = $this->getDoctrine()->getManager()->getRepository(Evenement::class)->findAll();
+
+        $rdvs = [];
+        foreach ($rep as $event)
+        {
+
+            $rdvs[]=[
+                'id' => $event->getId(),
+                'title'=>$event-> getNom(),
+                'start'=>$event->getDate()->format('Y-m-d H:i:s'),
+                'end'=>$event->getDate()->add(new \DateInterval('PT10H'))->format('Y-m-d H:i:s'),
+                'description' => $event->getDescription(),
+                'backgroundColor'=> '#dcdcdc',
+                'borderColor'=> 'green',
+                'textColor' => 'black'
+            ];
+
+        }
+
+
+        $data = json_encode($rdvs);
+        return $this->render('evenement/Calenderie.html.twig',compact('data' ));
+    }
+
+
+
+
+
+
+
+
+
+
+}
