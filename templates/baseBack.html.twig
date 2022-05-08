@@ -16,6 +16,9 @@
     <link href="{{ asset('../backAssets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css') }}" rel="stylesheet" />
     <!-- CSS Files -->
     <link href="{{ asset('../backAssets/css/argon-dashboard.css?v=1.1.2') }}" rel="stylesheet" />
+
+    {% block stylesheets %}
+    {% endblock %}
 </head>
 
 <body class="">
@@ -138,6 +141,27 @@
                         <i class="ni ni-bullet-list-67 text-red"></i> Top Events
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="{{ path('DisplayHospital') }}">
+                        <i class="ni ni-building text-red"></i> Gestion Hosptals
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="{{ path('DisplayPharmacy') }}">
+                        <i class="ni ni-map-big text-red"></i> Gestion Pharmacies
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="{{ path('DisplayDoctor') }}">
+                        <i class="ni ni-delivery-fast text-red"></i> Gestion Doctors
+                    </a>
+                </li>
+                 <li class="nav-item">
+                    <a class="nav-link " href="{{ path('stats') }}">
+                        <i class="ni ni-folder-17"></i> Statistique Hospitals
+                    </a>
+                </li>
+
                 <li class="nav-item">
                     <a class="nav-link" href="./examples/login.html">
                         <i class="ni ni-key-25 text-info"></i> Login
@@ -345,6 +369,8 @@
 
 
 </div>
+{% block javascripts %}
+{% endblock %}
 
 <script src="{{ asset('../backAssets/js/plugins/jquery/dist/jquery.min.js') }}"></script>
 <script src="{{ asset('../backAssets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>

@@ -6,7 +6,7 @@
 <center> <h1>Doctors</h1></center>
 <div class="containerr" style="padding: 100px; border:20px #0da5c0;">
     Recherche :
-    <input type="text" class="form-control" id="advanced" placeholder="Type here...">
+    <input type="text" class="form-control" id="advancedh" placeholder="Type here...">
     <div id="all">
     {% include 'ajax.html.twig' %}
     </div>
@@ -15,27 +15,14 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script>
 
-
-        $(function () {
-            $(".rateyo").rateYo().on("rateyo.change", function (e, data) {
-                var rating = data.rating;
-                $(this).parent().find('.score').text('score :'+ $(this).attr('data-rateyo-score'));
-                $(this).parent().find('.result').text('rating :'+ rating);
-                $(this).parent().find('input[name=rating]').val(rating); //add rating value to input field
-            });
-        });
-
-    </script>
-<script src="{{ asset('assets/js/jquery.js') }}"></script>
 <script
         src="{{ asset('https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js')}}">
 </script>
 <script>
     $( document ).ready(function() {
         var currentRequest = null;
-        $("#advanced").keyup(function(e){
+        $("#advancedh").keyup(function(e){
             /* La variable value va prendre la valeur insérer dans le champ de texte
             afin d’effectuer la recherche */
             var value = $(this).val();

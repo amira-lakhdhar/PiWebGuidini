@@ -112,8 +112,8 @@ class DoctorController extends AbstractController
             //'+216'.$user1->getNum(),
                 '+21623110748',
                 [
-                    'from' => '+12034086653', // From a valid Twilio number
-                    'body' => 'Salut,  Votre avez un nouveau Rate '.$rate,
+                    'from' => '+14123079450', // From a valid Twilio number
+                    'body' => 'Salut,  Votre avez un nouveau Rate ',
                 ]
             );
             return $this->redirectToRoute('showDoctor',['id'=>$id]);

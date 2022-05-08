@@ -3,6 +3,7 @@
 {% block title %}Hello EvenementController!{% endblock %}
 
 {% block body %}
+    <div style="background-color:floralwhite; ">
 <div class="col-sm-8" style="text-align: center; margin-left: 270px">
 
         <img src="{{ asset('Uploads/Image/'~doctor.Image) }}" style="width:70%; border-color: #0a0c0d; border: 10px; border-radius: 5px 5px 0 0;"
@@ -56,7 +57,7 @@
                 {{ form_errors(form1) }}
             </div>
             <div class="row">
-                <div class="col" hidden>
+                <div class="col" >
                     {{ form_widget(form1.rate) }}
                 </div>
 
@@ -69,6 +70,12 @@
 
         </div>
     </div>
+    </div>
 
     <br>
+    {% block javascripts %}
+        <script src="{{ asset('script1.js') }}" type="text/javascript"></script>
+    {% endblock %}
+
+
 {% endblock %}

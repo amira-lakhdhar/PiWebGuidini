@@ -4,8 +4,7 @@ window.onload = () => {
     const stars = document.querySelectorAll(".la-star");
 
     // On va chercher l'input
-    const note = document.querySelector("#event_rate_rate");
-
+    const note = document.querySelector("#rate_doctor_rate");
 
     // On boucle sur les étoiles pour le ajouter des écouteurs d'évènements
     for(star of stars){

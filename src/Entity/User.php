@@ -230,6 +230,7 @@ class User implements UserInterface
     public function setPhoto(string $Photo): self
     {
         $this->Photo = $Photo;
+        return $this;
     }
     /**
      * @return Collection|RateDoctor[]
