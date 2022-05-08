@@ -1,0 +1,40 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}Hello HospitalController!{% endblock %}
+
+{% block body %}
+    <h1> <centre>List Pharmacy</centre></h1>
+    <a class="btn btn-primary" href="{{ path('AddPharmacy') }}">Add A new Pharmacy</a>
+
+    <div style="display: flex; align-items: center; justify-content: center; margin-top: 10px; padding: 10px;">
+
+    <table class="table table-striped">
+        <thead>
+
+        <th>Name</th>
+        <th>Location</th>
+        <th>Hourly</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <th>Actions</th>
+        </thead>
+        {% for pharmacy in pharmacies %}
+        <tr>
+
+            <td>{{ pharmacy.name }}</td>
+            <td>{{ pharmacy.location }}</td>
+            <td>{{ pharmacy.hourly }}</td>
+            <td>{{ pharmacy.phone }}</td>
+            <td>{{ pharmacy.email }}</td>
+
+            <td> <a class="btn btn-success" href="{{ path('modiferpharmacy',{'id':pharmacy.id}) }}">Modifier</a></td>
+            <td><a class="btn btn-warning" href="{{ path('DeletePharmacy',{'id':pharmacy.id}) }}">Delete</a></td>
+        </tr>
+        {% endfor %}
+
+    </table>
+
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}Hello HospitalController!{% endblock %}
+
+{% block body %}
+    <h1> <centre>Hospitals</centre></h1>
+    <a class="btn btn-primary" href="{{ path('AddHospital') }}">Add A new Hospital</a>
+
+    <div style="display: flex; align-items: center; justify-content: center; margin-top: 10px; padding: 10px;">
+
+
+    <table class="table table-striped">
+        <thead>
+        <th>  </th>
+        <th>Name</th>
+        <th>Location</th>
+        <th>Score</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <th>Actions</th>
+        </thead>
+        {% for hospital in hospitals %}
+        <tr>
+            <td>  </td>
+            <td>{{ hospital.name }}</td>
+            <td>{{ hospital.location }}</td>
+            <td>{{ hospital.score }}</td>
+            <td>{{ hospital.phone }}</td>
+            <td>{{ hospital.email }}</td>
+            <td><a class="btn btn-success"  href="{{ path('modiferhospital',{'id':hospital.id}) }}">Modifier</a>
+            </td>
+            <td><a class="btn btn-warning" href="{{ path('deletehospital',{'id':hospital.id}) }}">Delete</a></td>
+
+        </tr>
+        {% endfor %}
+
+    </table>
+
+
+    </div>
+
+{% endblock %}

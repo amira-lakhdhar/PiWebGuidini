@@ -90,11 +90,18 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255)
      */
     private $Photo;
+    /**
+     * @ORM\OneToMany(targetEntity=RateDoctor::class, mappedBy="id_user")
+     */
+    private $rateDoctors;
+
+
 
     public function __construct()
     {
         $this->reclamations = new ArrayCollection();
         $this->id_Doctor = new ArrayCollection();
+        $this->rateDoctors = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -223,6 +230,21 @@ class User implements UserInterface
     public function setPhoto(string $Photo): self
     {
         $this->Photo = $Photo;
+    }
+    /**
+     * @return Collection|RateDoctor[]
+     */
+    public function getRateDoctors(): Collection
+    {
+        return $this->rateDoctors;
+    }
+
+    public function addRateDoctor(RateDoctor $rateDoctor): self
+    {
+        if (!$this->rateDoctors->contains($rateDoctor)) {
+            $this->rateDoctors[] = $rateDoctor;
+            $rateDoctor->setIdUser($this);
+        }
 
         return $this;
     }
@@ -249,5 +271,18 @@ class User implements UserInterface
     public function eraseCredentials()
     {
         // TODO: Implement eraseCredentials() method.
+    }
+
+
+    public function removeRateDoctor(RateDoctor $rateDoctor): self
+    {
+        if ($this->rateDoctors->removeElement($rateDoctor)) {
+            // set the owning side to null (unless already changed)
+            if ($rateDoctor->getIdUser() === $this) {
+                $rateDoctor->setIdUser(null);
+            }
+        }
+
+        return $this;
     }
 }

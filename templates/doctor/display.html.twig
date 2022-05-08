@@ -1,0 +1,42 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}Hello DoctorController!{% endblock %}
+
+{% block body %}
+    <h1> <centre>List Doctors</centre></h1>
+
+    <a class="btn btn-primary" href="{{ path('AddDoctor') }}">Add A new Doctor</a>
+
+
+    <div style="display: flex; align-items: center; justify-content: center; margin-top: 10px; padding: 10px;">
+
+    <table class="table table-striped">
+    <thead>
+    <th>  </th>
+    <th>Name</th>
+    <th>Location</th>
+    <th>Speciality</th>
+    <th>Phone</th>
+    <th>Hospital </th>
+    <th>Actions</th>
+    </thead>
+
+        {% for doctor in doctors %}
+            <tr>
+                <td><img src="{{ asset('Uploads/Image/'~doctor.Image) }}" width="150">  </td>
+                <td>{{ doctor.name }}</td>
+                <td>{{ doctor.location }}</td>
+                <td>{{ doctor.speciality }}</td>
+                <td>{{ doctor.phone }}</td>
+                <td>{{ doctor.getIdHospital().name }}</td>
+                <td><a class="btn btn-success" href="{{ path('modiferdoctor',{'id':doctor.id}) }}">Modifier</a></td>
+                <td><a class="btn btn-danger" href="{{ path('deletedoctor',{'id':doctor.id}) }}">Delete</a></td>
+            </tr>
+
+        {% endfor %}
+    </table>
+
+    </div>
+
+
+{% endblock %}

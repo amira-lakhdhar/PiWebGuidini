@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello EvenementController!{% endblock %}
+
+{% block body %}
+<div class="col-sm-8" style="text-align: center; margin-left: 270px">
+
+        <img src="{{ asset('Uploads/Image/'~doctor.Image) }}" style="width:70%; border-color: #0a0c0d; border: 10px; border-radius: 5px 5px 0 0;"
+             width="500"
+             height="500">
+        <div class="container" >
+            <h4><b>{{ doctor.name }}</b></h4>
+            <p>{{ doctor.location }}<br>
+                <b>Speciality : </b> {{ doctor.speciality }}<br>
+                <b>Phone Number : </b> {{ doctor.phone }}<br>
+                <b>Place of Work : </b> {{ doctor.getIdHospital().name }}<br>
+            <div class="row">
+                    <div class="stars">
+                        {% if ratings==1 %}
+                            <i class="las la-star" data-value="1"></i>
+                            <i class="lar la-star" data-value="2"></i>
+                            <i class="lar la-star" data-value="3"></i>
+                            <i class="lar la-star" data-value="4"></i>
+                            <i class="lar la-star" data-value="5"></i>
+                        {% elseif ratings==2 %}
+                            <i class="las la-star" data-value="1"></i>
+                            <i class="las la-star" data-value="2"></i>
+                            <i class="lar la-star" data-value="3"></i>
+                            <i class="lar la-star" data-value="4"></i>
+                            <i class="lar la-star" data-value="5"></i>
+                        {% elseif ratings==3 %}
+                            <i class="las la-star" data-value="1"></i>
+                            <i class="las la-star" data-value="2"></i>
+                            <i class="las la-star" data-value="3"></i>
+                            <i class="lar la-star" data-value="4"></i>
+                            <i class="lar la-star" data-value="5"></i>
+                        {% elseif ratings==4 %}
+                            <i class="las la-star" data-value="1"></i>
+                            <i class="las la-star" data-value="2"></i>
+                            <i class="las la-star" data-value="3"></i>
+                            <i class="las la-star" data-value="4"></i>
+                            <i class="lar la-star" data-value="5"></i>
+                        {% else %}
+                            <i class="las la-star" data-value="1"></i>
+                            <i class="las la-star" data-value="2"></i>
+                            <i class="las la-star" data-value="3"></i>
+                            <i class="las la-star" data-value="4"></i>
+                            <i class="las la-star" data-value="5"></i>
+                        {% endif %}
+                    </div>
+
+            </div>
+
+            {{ form_start(form1) }}
+            <div class="my-custom-class-for-errors">
+                {{ form_errors(form1) }}
+            </div>
+            <div class="row">
+                <div class="col" hidden>
+                    {{ form_widget(form1.rate) }}
+                </div>
+
+            </div>
+
+            <button class="btn">{{ button_label|default('Save Rate') }}</button>
+            <a class="btn btn-primary" href="{{ path('DisplayDoctorUser') }}">Back to Doctors List</a>
+
+            {{ form_end(form1) }}
+
+        </div>
+    </div>
+
+    <br>
+{% endblock %}
