@@ -4,7 +4,6 @@ namespace App\Entity;
 
 use App\Repository\ReclamationRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ReclamationRepository::class)
@@ -20,12 +19,6 @@ class Reclamation
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="Message should not be empty !!")
-     * @Assert\Length(
-     *     min=10,
-     *     max= 255,
-     *     minMessage ="Name should be >=10",
-     *     maxMessage ="Name should be <=255")
      */
     private $message;
 
@@ -36,17 +29,11 @@ class Reclamation
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="titre should not be empty !!")
-     * @Assert\Length(
-     *     min=3,
-     *     max= 20,
-     *     minMessage ="Name should be >=3",
-     *     maxMessage ="Name should be <=20")
      */
     private $Titre;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="reclamations")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="reclamations" )
      */
     private $User;
 

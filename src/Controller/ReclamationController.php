@@ -14,9 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class ReclamationController
- * @package App\Controller
- * @Route("/rec", name="rec")
+ * @Route("/rec")
  */
 class ReclamationController extends AbstractController
 {
@@ -31,25 +29,12 @@ class ReclamationController extends AbstractController
     }
 
     /**
-     * @Route("/Mesreclamation", name="Mesreclamation")
-     */
-    public function MesIndex(ReclamationRepository $repository,UserRepository $userRepository): Response
-    {
-        $user=$userRepository->find(2);
-        return $this->render('reclamation/Mesindex.html.twig', [
-            'reclamation' => $repository->findBy(['User'=>$user]),
-        ]);
-    }
-
-    /**
      * @Route ("/reclamation/Add", name="AddReclamation")
      */
-    public function add(Request $request,UserRepository $userRepository): Response
+    public function add(Request $request): Response
     {
         $reclamation = new Reclamation();
         $form = $this->createForm(ReclamationType::class, $reclamation);
-        $user=$userRepository->find(2);
-        $reclamation->setUser($user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -57,7 +42,7 @@ class ReclamationController extends AbstractController
             $entityManager->persist($reclamation);
             $entityManager->flush();
 
-            return $this->redirectToRoute('recMesreclamation');
+            return $this->redirectToRoute('reclamation');
         }
 
         return $this->render('reclamation/add.html.twig', [
@@ -76,31 +61,21 @@ class ReclamationController extends AbstractController
     }
 
     /**
-     * @Route("/reclamationAdmin/{id}", name="reclamationShowAdmin")
-     */
-    public function showAdmin(Reclamation $reclamation): Response
-    {
-        return $this->render('reclamation/Adminshow.html.twig', [
-            'reclamation' => $reclamation,
-        ]);
-    }
-
-    /**
      * @Route("/{id}/edit", name="reclamationEdit")
      */
     public function edit(Request $request, Reclamation $reclamation): Response
     {
-        $form = $this->createForm(ReclamationType::class, $reclamation);
+        $form = $this->createForm(UserType::class, $reclamation);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('recMesreclamation');
+            return $this->redirectToRoute('reclamation');
         }
 
         return $this->render('reclamation/edit.html.twig', [
-            'reclamation' => $reclamation,
+            'user' => $reclamation,
             'form' => $form->createView(),
         ]);
     }
@@ -116,6 +91,6 @@ class ReclamationController extends AbstractController
         $entityManager->flush();
 
 
-        return $this->redirectToRoute('recMesreclamation');
+        return $this->redirectToRoute('reclamation');
     }
 }

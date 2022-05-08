@@ -2,19 +2,18 @@
 
 namespace App\Controller;
 
+use App\Entity\Test;
 use App\Entity\User;
-use App\Form\LoginType;
-use App\Form\RegistrationFormType;
+use App\Form\TestType;
 use App\Form\UserType;
 use App\Repository\UserRepository;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/usr", name="usr")
+ * @Route("/usr")
  */
 class UserController extends AbstractController
 {
@@ -34,7 +33,6 @@ class UserController extends AbstractController
     public function add(Request $request): Response
     {
         $user = new User();
-
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
@@ -43,7 +41,7 @@ class UserController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            return $this->redirectToRoute('usruser');
+            return $this->redirectToRoute('user');
         }
 
         return $this->render('user/add.html.twig', [
@@ -72,7 +70,7 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('usruser');
+            return $this->redirectToRoute('user');
         }
 
         return $this->render('user/edit.html.twig', [
@@ -82,7 +80,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/del/{id}", name="userDelete")
+     * @Route("/{id}", name="userDelete")
      */
     public function delete(Request $request, User $user): Response
     {
@@ -92,67 +90,6 @@ class UserController extends AbstractController
             $entityManager->flush();
 
 
-        return $this->redirectToRoute('usruser');
-    }
-
-    /**
-     * @Route("/signUp", name="signUp")
-     */
-    public function signUp(Request $request): Response
-    {
-        $user = new User();
-        $form = $this->createForm(RegistrationFormType::class, $user);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $user->setRole("User");
-            try {
-                $image=$form->get('Photo')->getData();
-                $fichier=md5(uniqid()).'.'.$image->guessExtension();
-                $image->move(
-                    $this->getParameter('image_directory'),
-                    $fichier
-                );
-            }catch (FileException $e){
-
-            }
-
-            $user->setPhoto($fichier);
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('usrsignIn');
-        }
-
-        return $this->render('user/signUp.html.twig', [
-            'user' => $user,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/signIn", name="signIn")
-     */
-    public function signIn(Request $request,UserRepository $repository): Response
-    {
-        $user = new User();
-        $form = $this->createForm(LoginType::class, $user);
-        $form->handleRequest($request);
-        if ($form->isSubmitted()) {
-            $user2=$repository->findOneBy(['email'=>$user->getEmail()]);
-            $user->setNom($user2->getNom());
-            $user->setAdresse($user2->getAdresse());
-            $user->setPrenom($user2->getPrenom());
-            $user->setRole($user2->getRole());
-            if ($user2 && $user->getPassword()==$user2->getPassword()) {
-                return $this->redirectToRoute('usruserEdit',['id'=>$user2->getId()]);
-
-            }
-        }
-        return $this->render('user/signIn.html.twig', [
-            'form' => $form->createView(),
-        ]);
-
+        return $this->redirectToRoute('user');
     }
 }

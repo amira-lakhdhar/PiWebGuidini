@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reclamation index{% endblock %}
+
+{% block body %}
+    <h1>Reclamation index</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>user</th>
+            <th>message</th>
+            <th>type</th>
+            <th>titre</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for reclamation in reclamation %}
+            <tr>
+                <td>{{ reclamation.user.nom }} {{ reclamation.user.prenom }}</td>
+                <td>{{ reclamation.message }}</td>
+                <td>{{ reclamation.type }}</td>
+                <td>{{ reclamation.titre }}</td>
+                <td>
+
+                    <a class="btn btn-success" href="{{ path('recreclamationShow', {'id': reclamation.id}) }}">show</a>
+                    <a class="btn btn-success" href="{{ path('recreclamationEdit', {'id': reclamation.id}) }}">Edit</a>
+                    <a class="btn btn-danger" href="{{ path('recreclamationDelete', {'id': reclamation.id}) }}">Delete</a>
+
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

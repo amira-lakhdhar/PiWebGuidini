@@ -1,0 +1,30 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}Reclamation{% endblock %}
+
+{% block body %}
+    <h1>Reclamation</h1>
+
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>user</th>
+            <td>{{ reclamation.user.nom }} {{ reclamation.user.prenom }}</td>
+        </tr>
+        <tr>
+            <th>message</th>
+            <td>{{ reclamation.message }}</td>
+        </tr>
+        <tr>
+            <th>type</th>
+            <td>{{ reclamation.type }}</td>
+        </tr>
+        <tr>
+            <th>titre</th>
+            <td>{{ reclamation.titre }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a class="btn btn-success" href="{{ path('recreclamation') }}">back to list</a>
+{% endblock %}

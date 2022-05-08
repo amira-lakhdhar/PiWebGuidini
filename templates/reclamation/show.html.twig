@@ -8,27 +8,27 @@
     <table class="table">
         <tbody>
         <tr>
-            <th>user</th>
-            <td>{{ reclamation.user.nom }} {{ reclamation.user.prenom }}</td>
-        </tr>
-        <tr>
-            <th>message</th>
+            <th>Message</th>
             <td>{{ reclamation.message }}</td>
         </tr>
         <tr>
-            <th>type</th>
+            <th>Titre</th>
+            <td>{{ reclamation.titre }}</td>
+        </tr>
+        <tr>
+            <th>Type</th>
             <td>{{ reclamation.type }}</td>
         </tr>
         <tr>
-            <th>titre</th>
-            <td>{{ reclamation.titre }}</td>
+            <th>User</th>
+            <td>{{ reclamation.user.nom }} {{ reclamation.user.prenom }}</td>
         </tr>
         </tbody>
     </table>
 
-    <a class="btn btn-success" href="{{ path('recMesreclamation') }}">back to list</a>
+    <a href="{{ path('reclamation') }}">back to list</a>
 
-    <a class="btn btn-success" href="{{ path('recreclamationEdit', {'id': reclamation.id}) }}">edit</a>
+    <a href="{{ path('reclamationEdit', {'id': reclamation.id}) }}">edit</a>
 
-    <a class="btn btn-danger" href="{{ path('recreclamationDelete', {'id': reclamation.id}) }}">delete</a>
+    <a href="{{ path('reclamationDelete', {'id': reclamation.id}) }}">delete</a>
 {% endblock %}
