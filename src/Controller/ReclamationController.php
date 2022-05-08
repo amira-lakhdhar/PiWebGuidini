@@ -14,9 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class ReclamationController
- * @package App\Controller
- * @Route("/rec", name="rec")
+ * @Route("/rec")
  */
 class ReclamationController extends AbstractController
 {
@@ -31,6 +29,7 @@ class ReclamationController extends AbstractController
     }
 
     /**
+<<<<<<< HEAD
      * @Route("/Mesreclamation/{id}", name="Mesreclamation")
      */
     public function MesIndex(User $user,ReclamationRepository $repository,UserRepository $userRepository): Response
@@ -48,6 +47,14 @@ class ReclamationController extends AbstractController
         $reclamation = new Reclamation();
         $form = $this->createForm(ReclamationType::class, $reclamation);
         $reclamation->setUser($user);
+=======
+     * @Route ("/reclamation/Add", name="AddReclamation")
+     */
+    public function add(Request $request): Response
+    {
+        $reclamation = new Reclamation();
+        $form = $this->createForm(ReclamationType::class, $reclamation);
+>>>>>>> 884436c794d2793b01dfb6da78223d4abf31561c
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -55,7 +62,11 @@ class ReclamationController extends AbstractController
             $entityManager->persist($reclamation);
             $entityManager->flush();
 
+<<<<<<< HEAD
             return $this->redirectToRoute('recMesreclamation',['id'=>$user->getId()]);
+=======
+            return $this->redirectToRoute('reclamation');
+>>>>>>> 884436c794d2793b01dfb6da78223d4abf31561c
         }
 
         return $this->render('reclamation/add.html.twig', [
@@ -74,31 +85,25 @@ class ReclamationController extends AbstractController
     }
 
     /**
-     * @Route("/reclamationAdmin/{id}", name="reclamationShowAdmin")
-     */
-    public function showAdmin(Reclamation $reclamation): Response
-    {
-        return $this->render('reclamation/Adminshow.html.twig', [
-            'reclamation' => $reclamation,
-        ]);
-    }
-
-    /**
      * @Route("/{id}/edit", name="reclamationEdit")
      */
     public function edit(Request $request, Reclamation $reclamation): Response
     {
-        $form = $this->createForm(ReclamationType::class, $reclamation);
+        $form = $this->createForm(UserType::class, $reclamation);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
+<<<<<<< HEAD
             return $this->redirectToRoute('recMesreclamation',['id'=>$reclamation->getUser()->getId()]);
+=======
+            return $this->redirectToRoute('reclamation');
+>>>>>>> 884436c794d2793b01dfb6da78223d4abf31561c
         }
 
         return $this->render('reclamation/edit.html.twig', [
-            'reclamation' => $reclamation,
+            'user' => $reclamation,
             'form' => $form->createView(),
         ]);
     }
@@ -114,6 +119,7 @@ class ReclamationController extends AbstractController
         $entityManager->flush();
 
 
+<<<<<<< HEAD
         return $this->redirectToRoute('recMesreclamation',['id'=>$reclamation->getUser()->getId()]);
     }
 
@@ -128,5 +134,8 @@ class ReclamationController extends AbstractController
         return $this->render('reclamation/ajax.html.twig', [
             "reclamation"=>$jeux,
         ]);
+=======
+        return $this->redirectToRoute('reclamation');
+>>>>>>> 884436c794d2793b01dfb6da78223d4abf31561c
     }
 }

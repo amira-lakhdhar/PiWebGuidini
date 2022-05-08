@@ -6,16 +6,9 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
- * @UniqueEntity(
- *     fields={"email"},
- *     message="L'email que vous avais indiqué  est déjà utilisé !"
- * )
  */
 class User implements UserInterface
 {
@@ -28,53 +21,28 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="nom should not be empty !!")
-     * @Assert\Length(
-     *     min=5,
-     *     max= 20,
-     *     minMessage ="nom should be >=3",
-     *     maxMessage ="nom should be <=20")
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="prenom should not be empty !!")
-     * @Assert\Length(
-     *     min=5,
-     *     max= 20,
-     *     minMessage ="prenom should be >=3",
-     *     maxMessage ="prenom should be <=20")
      */
     private $prenom;
 
     /**
-         * @ORM\Column(type="string", length=255)
-         * @Assert\NotBlank(message="adresse should not be empty !!")
-         * @Assert\Length(
-         *     min=5,
-         *     max= 20,
-         *     minMessage ="adresse should be >=3",
-         *     maxMessage ="adresse should be <=20")
+     * @ORM\Column(type="string", length=255)
      */
     private $adresse;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Email()
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min="8" ,  minMessage="Votre mot de passe doit faire minimum 8 caracters")
      */
     private $password;
-
-    /**
-     * @Assert\EqualTo(propertyPath="Password",message="les deux mot de passe doit etre le meme")
-     */
-    public $Confirm_Password;
 
     /**
      * @ORM\Column(type="boolean")
@@ -82,14 +50,9 @@ class User implements UserInterface
     private $role;
 
     /**
-     * @ORM\OneToMany(targetEntity=Reclamation::class, mappedBy="User")
+     * @ORM\OneToMany(targetEntity=Reclamation::class, mappedBy="User" , fetch="EAGER")
      */
     private $reclamations;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $Photo;
 
     public function __construct()
     {
@@ -202,6 +165,7 @@ class User implements UserInterface
 
         return $this;
     }
+<<<<<<< HEAD
     public function getConfirm_Password(): ?string
     {
         return $this->Confirm_Password;
@@ -249,4 +213,6 @@ class User implements UserInterface
     {
         // TODO: Implement eraseCredentials() method.
     }
+=======
+>>>>>>> 884436c794d2793b01dfb6da78223d4abf31561c
 }

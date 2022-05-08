@@ -228,7 +228,11 @@ class User implements UserInterface
 
     public function getRoles()
     {
+<<<<<<< HEAD
         if($this->role=='User'){
+=======
+        if($this->role){
+>>>>>>> 884436c794d2793b01dfb6da78223d4abf31561c
             return array('ROLE_USER');
         }else{
             return array('ROLE_ADMIN');

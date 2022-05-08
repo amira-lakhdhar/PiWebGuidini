@@ -47,4 +47,17 @@ class ReclamationRepository extends ServiceEntityRepository
         ;
     }
     */
+<<<<<<< HEAD
+=======
+
+    public function findReclamationAjax($requestString)
+    {
+        $query = $this->createQueryBuilder('a')
+            ->Where('a.type LIKE :key')
+            ->orWhere('a.message LIKE :key')
+            ->orWhere('a.Titre LIKE :key')
+            ->setParameter('key' , '%'.$requestString.'%')->getQuery();
+        return $query->getResult();
+    }
+>>>>>>> 884436c794d2793b01dfb6da78223d4abf31561c
 }

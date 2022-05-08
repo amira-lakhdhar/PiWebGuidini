@@ -2,19 +2,18 @@
 
 namespace App\Controller;
 
+use App\Entity\Test;
 use App\Entity\User;
-use App\Form\LoginType;
-use App\Form\RegistrationFormType;
+use App\Form\TestType;
 use App\Form\UserType;
 use App\Repository\UserRepository;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/usr", name="usr")
+ * @Route("/usr")
  */
 class UserController extends AbstractController
 {
@@ -34,7 +33,6 @@ class UserController extends AbstractController
     public function add(Request $request): Response
     {
         $user = new User();
-
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
@@ -43,7 +41,7 @@ class UserController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            return $this->redirectToRoute('usruser');
+            return $this->redirectToRoute('user');
         }
 
         return $this->render('user/add.html.twig', [
@@ -72,7 +70,7 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('usruser');
+            return $this->redirectToRoute('user');
         }
 
         return $this->render('user/edit.html.twig', [
@@ -82,7 +80,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/del/{id}", name="userDelete")
+     * @Route("/{id}", name="userDelete")
      */
     public function delete(Request $request, User $user): Response
     {
@@ -92,6 +90,7 @@ class UserController extends AbstractController
             $entityManager->flush();
 
 
+<<<<<<< HEAD
         return $this->redirectToRoute('usruser');
     }
 
@@ -132,4 +131,8 @@ class UserController extends AbstractController
     }
 
 
+=======
+        return $this->redirectToRoute('user');
+    }
+>>>>>>> 884436c794d2793b01dfb6da78223d4abf31561c
 }

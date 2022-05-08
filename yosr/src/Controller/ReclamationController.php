@@ -116,4 +116,20 @@ class ReclamationController extends AbstractController
 
         return $this->redirectToRoute('recMesreclamation',['id'=>$reclamation->getUser()->getId()]);
     }
+<<<<<<< HEAD
+=======
+
+    /**
+     * @Route("/searchReclamationajax", name="ajaxReclamation")
+     */
+    public function searchajax(Request $request ,ReclamationRepository $PartRepository)
+    {
+        $requestString=$request->get('searchValue');
+        $jeux = $PartRepository->findReclamationAjax($requestString);
+
+        return $this->render('reclamation/ajax.html.twig', [
+            "reclamation"=>$jeux,
+        ]);
+    }
+>>>>>>> 884436c794d2793b01dfb6da78223d4abf31561c
 }

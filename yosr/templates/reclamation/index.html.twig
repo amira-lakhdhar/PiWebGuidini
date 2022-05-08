@@ -5,6 +5,7 @@
 {% block body %}
     <h1>Reclamation index</h1>
 
+<<<<<<< HEAD
     <table class="table">
         <thead>
         <tr>
@@ -34,4 +35,41 @@
         </tbody>
     </table>
 
+=======
+    
+        <div id="all">
+        {% include 'reclamation/ajax.html.twig' %}
+        </div>        
+        
+        <script
+            src="{{ asset('https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js')}}">
+    </script>
+    <script>
+        $(document).ready(function() {
+            var currentRequest = null;
+            $("#advanced").keyup(function(e){
+                /* La variable value va prendre la valeur insérer dans le champ de texte
+                afin d’effectuer la recherche */
+                var value = $(this).val();
+                if(currentRequest != null) {
+                    currentRequest.abort();
+                }
+                /* Ajax est lancé lors du remplissage du champ texte dont l’id est
+                « search » pour faire la recherche */
+                currentRequest = $.ajax({
+                    url : "{{ path('recajaxReclamation') }}",
+                    type : 'GET',
+                    data: {
+                        'searchValue' : value
+                    },
+                    success : function(retour)
+                    {
+                        $('#all').html(retour);
+                    },
+                });
+                return false;
+            });
+        });
+    </script>
+>>>>>>> 884436c794d2793b01dfb6da78223d4abf31561c
 {% endblock %}

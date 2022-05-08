@@ -141,6 +141,7 @@
             {{ form_start(form ,{'attr':{'novalidate':'novalidate'}})  }}
             {{form_errors(form.nom) }}
             {{ form_label(form.nom,'nom') }}
+<<<<<<< HEAD
             {{ form_widget(form.nom, {'attr': {'class': 'form-control','placeholder': ''}}) }}
             {{form_errors(form.prenom) }}
             {{ form_label(form.prenom,'prenom') }}
@@ -160,6 +161,27 @@
             {{form_errors(form.Confirm_Password) }}
             {{ form_label(form.Confirm_Password,'Confirm Password') }}
             {{ form_widget(form.Confirm_Password, {'attr': {'class': 'form-control','placeholder': 'mriguel'}}) }}
+=======
+            {{ form_widget(form.nom, {'attr': {'class': 'form-control','placeholder': 'nom'}}) }}
+            {{form_errors(form.prenom) }}
+            {{ form_label(form.prenom,'prenom') }}
+            {{ form_widget(form.prenom, {'attr': {'class': 'form-control','placeholder': 'prenom'}}) }}
+            {{form_errors(form.adresse) }}
+            {{ form_label(form.adresse,'adresse') }}
+            {{ form_widget(form.adresse, {'attr': {'class': 'form-control','placeholder': 'adresse'}}) }}
+            {{form_errors(form.email) }}
+            {{ form_label(form.email,'email') }}
+            {{ form_widget(form.email, {'attr': {'class': 'form-control','placeholder': 'email'}}) }}
+            {{form_errors(form.Photo) }}
+            {{ form_label(form.Photo,'Photo') }}
+            {{ form_widget(form.Photo, {'attr': {'class': 'form-control','placeholder': 'photo'}}) }}
+            {{form_errors(form.password) }}
+            {{ form_label(form.password,'password') }}
+            {{ form_widget(form.password, {'attr': {'class': 'form-control','placeholder': 'password'}}) }}
+            {{form_errors(form.Confirm_Password) }}
+            {{ form_label(form.Confirm_Password,'Confirm Password') }}
+            {{ form_widget(form.Confirm_Password, {'attr': {'class': 'form-control','placeholder': 'confirm password'}}) }}
+>>>>>>> 884436c794d2793b01dfb6da78223d4abf31561c
             <button class="btn bg-gradient-primary mb-0">{{ button_label|default('S inscrire') }}</button>
             {{ form_end(form) }}
         </div>

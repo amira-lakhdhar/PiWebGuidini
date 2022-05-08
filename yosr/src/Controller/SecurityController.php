@@ -76,6 +76,11 @@ class SecurityController extends AbstractController
 
         if(TRUE === $this->get('security.authorization_checker')->isGranted('ROLE_USER')){
             return $this->redirectToRoute('security_home');
+<<<<<<< HEAD
+=======
+        }if(TRUE === $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')){
+            return $this->redirectToRoute('recreclamation');
+>>>>>>> 884436c794d2793b01dfb6da78223d4abf31561c
         }
         return $this->render('security/login.html.twig');
     }
