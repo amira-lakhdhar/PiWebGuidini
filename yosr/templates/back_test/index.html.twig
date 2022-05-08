@@ -1,0 +1,33 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}BackTest index{% endblock %}
+
+{% block body %}
+    <h1>BackTest index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for back_test in back_tests %}
+            <tr>
+                <td>{{ back_test.id }}</td>
+                <td>
+                    <a href="{{ path('back_test_show', {'id': back_test.id}) }}">show</a>
+                    <a href="{{ path('back_test_edit', {'id': back_test.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="2">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('back_test_new') }}">Create new</a>
+{% endblock %}

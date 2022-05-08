@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello SecurityController!{% endblock %}
+
+{% block SignIn %}
+    <a class="btn btn-success" href="{{ path('security_registration') }}">Insription</a>
+    <a class="btn btn-info" href="{{ path('security_login') }}">Sign In</a>
+{% endblock %}
+
+{% block imgProfile %}
+    <img src="{{ asset('Uploads/'~ app.user.Photo) }}" style=" border-radius: 5px 5px 0 0;"  width="50"
+         height="50" >
+{% endblock %}

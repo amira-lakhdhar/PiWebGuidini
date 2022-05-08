@@ -1,0 +1,28 @@
+security:
+    encoders:
+        App\Entity\User:
+            algorithm: bcrypt
+    providers:
+        in_memory: { memory: ~ }
+        in_database:
+            entity:
+                class: App\Entity\User
+                property: email
+    firewalls:
+        dev:
+                pattern: ^/(_(profiler|wdt)|css|images|js)/
+                security: false
+        main:
+                anonymous: true
+                provider: in_database
+                form_login:
+                    login_path: security_login
+                    check_path: security_login
+                logout:
+                    path: security_logout
+                    target: security_home
+    access_control:
+        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/user, roles: ROLE_USER }
+
+

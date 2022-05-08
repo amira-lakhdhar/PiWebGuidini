@@ -1,0 +1,23 @@
+<div class="row">
+    <div class="col-sm-6">
+        {{ form_start(form ,{'attr':{'novalidate':'novalidate'}})  }}
+        {{ form_label(form.nom,'nom') }}
+        {{ form_widget(form.nom, {'attr': {'class': 'form-control','placeholder': ''}}) }}
+        {{ form_label(form.adresse,'adresse') }}
+        {{ form_widget(form.adresse, {'attr': {'class': 'form-control','placeholder': 'mriguel'}}) }}
+        {{ form_label(form.email,'email') }}
+        {{ form_widget(form.email, {'attr': {'class': 'form-control','placeholder': 'mriguel'}}) }}
+        {{ form_label(form.Photo,'Photo') }}
+        {{ form_widget(form.Photo, {'attr': {'class': 'form-control','placeholder': 'mriguel'}}) }}
+        {{ form_label(form.password,'password') }}
+        {{ form_widget(form.password, {'attr': {'class': 'form-control','placeholder': 'mriguel'}}) }}
+        {{ form_label(form.Confirm_Password,'Confirm Password') }}
+        {{ form_widget(form.Confirm_Password, {'attr': {'class': 'form-control','placeholder': 'mriguel'}}) }}
+        {{ form_label(form.CaptchaCode,' Captcha') }}
+        {{ form_widget(form.CaptchaCode, {'attr': {'class': 'form-control','placeholder': 'mriguel'}}) }}
+
+        <button class="btn bg-gradient-primary mb-0">{{ button_label|default('S inscrire') }}</button>
+        {{ form_end(form) }}
+    </div>
+</div>
+
