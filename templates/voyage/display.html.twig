@@ -1,0 +1,52 @@
+{% extends 'baseBack.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">
+
+{% endblock %}
+{% block body %}
+    <centre><h1>List Des voyages </h1></centre>
+    <table class="table table-striped">
+        <thead>
+        <th>  </th>
+        <th>Voyage à </th>
+        <th>Description</th>
+        <th>Prix </th>
+        <th>Num du vol</th>
+        <th>ville depart</th>
+        <th>type vol</th>
+        <th>Date </th>
+        <th>Compagnie</th>
+        <th>      </th>
+        <th>Actions</th>
+        </thead>
+        {% for voyage in voyages %}
+            <tr>
+                <td></td>
+                <td>{{ voyage.getVol().getDestination() }} </td>
+                <td>{{ voyage.description}}</td>
+                <td>{{ voyage.Prix }} $</td>
+                <td>{{ voyage.getVol().getNumVol() }}</td>
+                <td> {{ voyage.getVol().getVilleDepart() }}</td>
+                <td>{{ voyage.getVol().getTypeVol() }}</td>
+                <td>{{ voyage.getVol().getDateVol() |date('d-m-Y')}}</td>
+                <td>{{ voyage.getVol().getCompagnie().nom }}</td>
+                <td> <img src="{{ asset('Uploads/Image/'~voyage.getVol().getCompagnie().Logo) }}" width="70"> </td>
+                <td> <a class="btn btn-success" href="{{ path('ModifierVoyage',{'id':voyage.id}) }}">Modifier</a></td>
+                <td><a class="btn btn-danger" href="{{ path('DeleteVoyage',{'id':voyage.id}) }}">Delete</a> <br>
+
+                </td>
+            </tr>
+        {% endfor %}
+
+    </table>
+    <a class="btn btn-primary" href="{{ path('AjouterVoyage') }}">Ajouter une nouvelle Voyage</a>
+    {% block javascripts %}
+        <script src="//code.jquery.com/jquery.js"></script>
+        <!-- Load Flashy default JavaScript -->
+        <script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>
+        <!-- Include Flashy default partial -->
+    {% endblock %}
+    {{ include('@MercurySeriesFlashy/flashy.html.twig') }}
+
+
+{% endblock %}

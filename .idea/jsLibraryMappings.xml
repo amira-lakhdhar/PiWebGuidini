@@ -2,5 +2,6 @@
 <project version="4">
   <component name="JavaScriptLibraryMappings">
     <file url="PROJECT" libraries="{Chart.js, bootstrap, jquery, palette, rateYo}" />
+    <file url="PROJECT" libraries="{fullcalendar}" />
   </component>
 </project>
