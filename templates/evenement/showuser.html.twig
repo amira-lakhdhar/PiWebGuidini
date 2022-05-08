@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <center> <h1>List des Evenements</h1></center>
+
+    <div class="row" style="padding: 10px; margin-top: 10px;margin-left: 20px;margin-right: 20px; padding-bottom: 10px; padding-top: 10px;">
+        {{ form_start(form,{attr:{novalidate:'novalidate'}}) }}
+        <div class="form-row align-items-end">
+            <div class="col">
+                {{ form_row(form.Nom) }}
+            </div>
+
+            <div class="col">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success">Rechercher</button>
+                </div>
+            </div>
+
+        </div>
+        {{ form_end(form) }}
+        {% for event in events %}
+            {% set avg=0 %}
+            {% set i=0 %}
+            {% set tot=0 %}
+            {% set ratings=0 %}
+                <div class="col-sm-3">
+                <div class="card">
+                    <img src="{{ asset('Uploads/Image/'~event.Image) }}" style="width:100%; border-radius: 5px 5px 0 0;"  width="400"
+                         height="200">
+                    <div class="container" >
+                        <h4><b>{{ event.nom }}</b></h4>
+                        {% if event.getOffre().Pourcentage==0 %}
+                          <p class="price" style="color: grey;font-size: 22px;"> <centre>{{ event.Prix }}$</centre></p>
+                        {% else %}
+                          <p class="price" style="color: grey;font-size: 22px;"> <centre>{{ event.Prix*(1-(event.getOffre().Pourcentage/100)) }}$</centre></p>
+                        {% endif %}
+                        <p>{{ event.Date |date('d-m-Y')}} <br>
+                            {{ event.Type }}<br>
+                            {{ event.localisation }}
+                        <br>Offre : {{ event.getOffre().nom }}</p>
+
+                        {% for r in rates %}
+                            {% if  r.getIdEvent.getId == event.getId %}
+                                {% set i=i+1 %}
+                                {% set tot=tot+r.rate %}
+                                {% set avg=tot/i %}
+                            {% endif %}
+                        {% endfor %}
+                        Rate Total :  <b>{{ avg }}/5</b>
+
+                        {% set avg=0 %}
+                        {% set tot=0 %}
+                        {% set i=0 %}
+                        {% set ratings=0 %}
+
+
+                        {% if event.getReserved()==1 %}
+                            <p> Déja Réserver <a class="btn btn-primary" href="{{ path('showevent',{'id':event.id})}}">Show </a></p>
+
+                                    {% else %}
+                            <p><a class="btn btn-success" href="{{ path('AjouterReservation',{'id_event':event.id,'iduser':iduser}) }}">Reserver</a>
+                                            <a class="btn btn-primary" href="{{ path('showevent',{'id':event.id})}}">Show </a></p>
+                                    {% endif %}
+
+
+
+                    </div>
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+
+<br>
+    <a class="btn btn-success" href="{{ path('ShowReservation') }}">Check your reservations</a><br>
+<br>
+    <a class="btn btn-primary float-right" href="{{ path('imprimer_prod') }}">Download All Events info</a>
+
+
+
+
+{% endblock %}

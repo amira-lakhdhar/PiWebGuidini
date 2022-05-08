@@ -13,6 +13,11 @@
             <item index="5" class="java.lang.String" itemvalue="script" />
             <item index="6" class="java.lang.String" itemvalue="body" />
             <item index="7" class="java.lang.String" itemvalue="style" />
+    <inspection_tool class="HtmlUnknownAttribute" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="myValues">
+        <value>
+          <list size="1">
+            <item index="0" class="java.lang.String" itemvalue="col-sm-4" />
           </list>
         </value>
       </option>

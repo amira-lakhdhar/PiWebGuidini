@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <center> <h1>Mes reservations</h1></center>
+    <div style="display: flex; align-items: center; justify-content: center; margin-top: 10px; padding: 10px;">
+
+    <div class="card">
+    <div class="card-body">
+
+    <table class="table table-striped">
+        <thead>
+        <th></th>
+        <th> Nom evenement</th>
+        <th> Data Evenement </th>
+        <th>Type</th>
+        <th>Localisation</th>
+        <th>Prix</th>
+
+        <th>Offre</th>
+        <th></th>
+        </thead>
+
+        {% for reservation in reservations %}
+            <tr>
+                <td><img src="{{ asset('Uploads/Image/'~reservation.getIdEvenement().Image) }}" width="120"> </td>
+                <td>{{ reservation.getIdEvenement().nom }}</td>
+                <td>{{ reservation.getIdEvenement().Date |date('d-m-Y')}}</td>
+                <td>{{ reservation.getIdEvenement().Type }}</td>
+                <td>{{ reservation.getIdEvenement().localisation }}</td>
+                {% if reservation.getIdEvenement().getOffre().Pourcentage==0 %}
+                    <td>{{reservation.getIdEvenement().Prix }}$</td>
+                {% else %}
+                    <td>{{ reservation.getIdEvenement().Prix/reservation.getIdEvenement().getOffre().Pourcentage }}$</td>
+                {% endif %}
+                <td>{{ reservation.getIdEvenement().getOffre().nom }}</td>
+
+
+                <td><a class="btn btn-danger" href="{{ path('deletereservation',{'id':reservation.id}) }}">Cancel Reservation</a> <br>
+                </td>
+            </tr>
+
+        {% endfor %}
+    </table>
+    </div>
+        <a class="btn btn-primary" href="{{ path('ShowEvenementUser') }}">Back To Event List</a>
+
+    </div>
+
+    </div>
+
+
+
+
+{% endblock %}

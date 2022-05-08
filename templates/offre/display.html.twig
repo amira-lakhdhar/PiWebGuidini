@@ -1,0 +1,33 @@
+{% extends 'baseBack.html.twig' %}
+{% block body %}
+    <h5 class="card-title"> <centre>List Offre</centre></h5>
+    <div style="display: flex; align-items: center; justify-content: center; margin-top: 10px; padding: 10px;">
+
+
+
+    <table class="table table-striped">
+        <thead>
+        <th>  </th>
+        <th>Nom</th>
+        <th>Pourcentage </th>
+        <th></th>
+        </thead>
+        {% for offer in offers %}
+            <tr>
+                <td>  </td>
+                <td>{{ offer.Nom }}</td>
+                <td>{{ offer.Pourcentage}}%</td>
+                <td> <a class="btn btn-success" href="{{  path('modifierOffre',{'id':offer.id}) }}">Modifier</a></td>
+                <td><a class="btn btn-danger" href="{{ path('DeleteOffre',{'id':offer.id}) }}">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+
+    </table>
+
+
+
+    </div>
+    <a href="{{ path('AddOffre') }}">Ajouter une nouvelle Offre</a>
+
+{% endblock %}

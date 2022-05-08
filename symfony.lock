@@ -5,8 +5,14 @@
     "captcha-com/symfony-captcha-bundle": {
         "version": "4.2.12"
     },
+    "bacon/bacon-qr-code": {
+        "version": "2.0.7"
+    },
     "composer/package-versions-deprecated": {
         "version": "1.11.99.4"
+    },
+    "dasprid/enum": {
+        "version": "1.0.3"
     },
     "doctrine/annotations": {
         "version": "1.0",
@@ -88,11 +94,44 @@
     "doctrine/sql-formatter": {
         "version": "1.1.1"
     },
+    "dompdf/dompdf": {
+        "version": "v1.2.1"
+    },
     "egulias/email-validator": {
         "version": "2.1.25"
     },
+    "endroid/installer": {
+        "version": "1.2.3"
+    },
+    "endroid/qr-code": {
+        "version": "3.9.6"
+    },
+    "endroid/qr-code-bundle": {
+        "version": "3.4.3"
+    },
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.5"
+    },
+    "friendsofsymfony/jsrouting-bundle": {
+        "version": "2.8",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "2.3",
+            "ref": "a9f2e49180f75cdc71ae279a929c4b2e0638de84"
+        },
+        "files": [
+            "./config/routes/fos_js_routing.yaml"
+        ]
+    },
+    "khanamiryan/qrcode-detector-decoder": {
+        "version": "1.0.5.2"
+    },
+    "knplabs/knp-components": {
+        "version": "v2.5.1"
+    },
+    "knplabs/knp-paginator-bundle": {
+        "version": "v5.3.0"
     },
     "laminas/laminas-code": {
         "version": "3.4.1"
@@ -103,6 +142,9 @@
     "myclabs/deep-copy": {
         "version": "1.10.2"
     },
+    "myclabs/php-enum": {
+        "version": "1.7.7"
+    },
     "nikic/php-parser": {
         "version": "v4.13.0"
     },
@@ -111,6 +153,12 @@
     },
     "phar-io/version": {
         "version": "2.0.1"
+    },
+    "phenx/php-font-lib": {
+        "version": "0.5.4"
+    },
+    "phenx/php-svg-lib": {
+        "version": "0.4.1"
     },
     "phpdocumentor/reflection-common": {
         "version": "2.1.0"
@@ -164,6 +212,9 @@
     },
     "psr/log": {
         "version": "1.1.4"
+    },
+    "sabberworm/php-css-parser": {
+        "version": "8.4.0"
     },
     "sebastian/code-unit-reverse-lookup": {
         "version": "1.0.2"
@@ -595,5 +646,8 @@
     },
     "webmozart/assert": {
         "version": "1.9.1"
+    },
+    "willdurand/jsonp-callback-validator": {
+        "version": "v1.1.0"
     }
 }

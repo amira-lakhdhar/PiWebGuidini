@@ -88,6 +88,7 @@
                         <a href="./index.html">
                             <img src="{{ asset('Uploads/'~ app.user.Photo) }}" style=" border-radius: 5px 5px 0 0;"  width="50"
          height="50" >
+                            <img src="{{ asset('../backAssets/img/brand/blue.png') }}">
                         </a>
                     </div>
                     <div class="col-6 collapse-close">
@@ -193,6 +194,7 @@
                             <span class="input-group-text"><i class="fas fa-search"></i></span>
                         </div>
                         <input class="form-control" placeholder="Search" type="text" id="advanced">
+                        <input class="form-control" placeholder="Search" type="text">
                     </div>
                 </div>
             </form>
@@ -231,6 +233,7 @@
                         </a>
                         <div class="dropdown-divider"></div>
                         <a href="{{ path('security_logout') }}" class="dropdown-item">
+                        <a href="#!" class="dropdown-item">
                             <i class="ni ni-user-run"></i>
                             <span>Logout</span>
                         </a>
@@ -341,6 +344,7 @@
 
 
 </div>
+
 <script src="{{ asset('../backAssets/js/plugins/jquery/dist/jquery.min.js') }}"></script>
 <script src="{{ asset('../backAssets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
 <!--   Optional JS   -->

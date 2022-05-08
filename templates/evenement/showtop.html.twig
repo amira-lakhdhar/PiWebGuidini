@@ -1,0 +1,48 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block body %}
+    <center> <h1>Top 3 Evenements Reservé</h1></center>
+
+    <div class="row" style="padding: 10px; margin-top: 10px;margin-left: 20px;margin-right: 20px; padding-bottom: 10px; padding-top: 10px;">
+        {% for resul in result %}
+
+        {% for event in events %}
+                 {%  if event.id == resul.2 %}
+
+
+            <div class="col-sm-4">
+                <div class="card">
+                    <img src="{{ asset('Uploads/Image/'~event.Image) }}" style="width:100%; border-radius: 5px 5px 0 0;"  width="400"
+                         height="200">
+                    <div class="container" >
+                        <h4><b>{{ event.nom }}</b></h4>
+                        {% if event.getOffre().Pourcentage==0 %}
+                            <p class="price" style="color: grey;font-size: 22px;"> <centre>{{ event.Prix }}$</centre></p>
+                        {% else %}
+                            <p class="price" style="color: grey;font-size: 22px;"> <centre>{{ event.Prix*(1-(event.getOffre().Pourcentage/100)) }}$</centre></p>
+                        {% endif %}
+                        <p>{{ event.Date |date('d-m-Y')}} <br>
+                            {{ event.Type }}<br>
+                            {{ event.localisation }}
+                            <br>Offre : {{ event.getOffre().nom }}</p>
+                        <h3>Nombre des Reservation : {{ resul.1 }}</h3>
+
+
+
+
+                    </div>
+                </div>
+            </div>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+
+    </div>
+
+
+
+
+
+
+
+{% endblock %}

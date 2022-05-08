@@ -6,9 +6,16 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @UniqueEntity(
+ *     fields={"email"},
+ *     message="L'email que vous avais indiquÃŠ  est dÃŠjÃ  utilisÃŠ !"
+ * )
  */
 class User implements UserInterface
 {
@@ -21,16 +28,30 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="nom should not be empty !!")
+     * @Assert\Length(
+     *     min=3,
+     *     max= 20,
+     *     minMessage ="Name should be >=3",
+     *     maxMessage ="Name should be <=20")
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="prenom should not be empty !!")
+     * @Assert\Length(
+     *     min=3,
+     *     max= 20,
+     *     minMessage ="Name should be >=3",
+     *     maxMessage ="Name should be <=20")
      */
     private $prenom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="adresse should not be empty !!")
+     *     maxMessage ="Name should be <=20")
      */
     private $adresse;
 
@@ -41,6 +62,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min="8" ,  minMessage="Votre mot de passe doit faire minimum 8 caracters")
      */
     private $password;
 
@@ -54,9 +76,23 @@ class User implements UserInterface
      */
     private $reclamations;
 
+    /**
+     * @Assert\EqualTo(propertyPath="Password",message="les deux mot de passe doit etre le meme")
+     */
+    public $Confirm_Password;
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $role;
+
+
+
+
+
     public function __construct()
     {
         $this->reclamations = new ArrayCollection();
+        $this->id_Doctor = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -199,20 +235,4 @@ class User implements UserInterface
         }
     }
 
-    public function getSalt()
-    {
-        // TODO: Implement getSalt() method.
-    }
-
-    public function getUsername()
-    {
-        // TODO: Implement getUsername() method.
-    }
-
-    public function eraseCredentials()
-    {
-        // TODO: Implement eraseCredentials() method.
-    }
-=======
->>>>>>> 884436c794d2793b01dfb6da78223d4abf31561c
 }
