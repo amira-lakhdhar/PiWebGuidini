@@ -1,4 +1,8 @@
 {% extends 'baseBack.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">
+
+{% endblock %}
 {% block body %}
     <table class="table table-striped">
         <thead>
@@ -30,7 +34,13 @@
 
     </table>
     <a class="btn btn-primary" href="{{ path('AddVol') }}">Ajouter une nouvelle Vol</a>
-
+    {% block javascripts %}
+        <script src="//code.jquery.com/jquery.js"></script>
+        <!-- Load Flashy default JavaScript -->
+        <script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>
+        <!-- Include Flashy default partial -->
+    {% endblock %}
+    {{ include('@MercurySeriesFlashy/flashy.html.twig') }}
 
 
 {% endblock %}

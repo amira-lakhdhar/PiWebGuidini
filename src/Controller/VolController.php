@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Vol;
 use App\Form\VolType;
+use MercurySeries\FlashyBundle\FlashyNotifier;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,7 +26,7 @@ class VolController extends AbstractController
     /**
      * @Route("/AddVol", name="AddVol")
      */
-    public function addVol(Request $request): Response
+    public function addVol(Request $request,FlashyNotifier $flashy): Response
     {
         $vol = new Vol();
 
@@ -37,6 +38,8 @@ class VolController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->persist($vol);
             $em->flush();
+            $flashy->success("Vol Added successfully");
+
             return $this->redirectToRoute('ConsulterVol');
         }
 
@@ -61,12 +64,14 @@ class VolController extends AbstractController
     /**
      * @Route("DeleteVol/{id}",name="DeleteVol")
      */
-    function DeleteVol($id)
+    function DeleteVol($id,FlashyNotifier $flashy)
     {
         $eq=$this->getDoctrine()->getManager()->getRepository(Vol::class)->find($id);
         $em=$this->getDoctrine()->getManager();
         $em->remove($eq);
         $em->flush();
+        $flashy->error("Vol Deleted successfully");
+
         return $this->redirectToRoute('ConsulterVol');
 
     }
@@ -74,7 +79,7 @@ class VolController extends AbstractController
     /**
      * @Route("modifierVol/{id}",name="modifierVol")
      */
-    function modifier ($id,Request $request)
+    function modifier ($id,Request $request,FlashyNotifier $flashy)
     {
         $vol=$this->getDoctrine()->getManager()->getRepository(Vol::class)->find($id);
         $form=$this->createForm(VolType::class,$vol);
@@ -84,6 +89,8 @@ class VolController extends AbstractController
         {
             $em=$this->getDoctrine()->getManager();
             $em->flush();
+            $flashy->warning("Vol Modified successfully");
+
             return $this->redirectToRoute("ConsulterVol");
         }
         return $this->render("vol/modifier.html.twig",['f'=>$form->createView()]);

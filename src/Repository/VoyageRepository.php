@@ -19,6 +19,22 @@ class VoyageRepository extends ServiceEntityRepository
         parent::__construct($registry, Voyage::class);
     }
 
+    public function findVoyage($value)
+    {
+        return $this->createQueryBuilder('d')
+            ->Where('d.description LIKE :val')
+            ->join('d.Vol','v')
+            ->join('v.Compagnie','c')
+            ->orWhere('c.Nom LIKE :val')
+            ->orWhere('v.destination LIKE :val')
+            ->orWhere('v.ville_depart LIKE :val')
+            ->setParameter('val', '%'.$value.'%')
+            ->orderBy('d.Prix','ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     // /**
     //  * @return Voyage[] Returns an array of Voyage objects
     //  */

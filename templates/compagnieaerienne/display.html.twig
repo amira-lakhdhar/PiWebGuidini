@@ -1,5 +1,9 @@
 {% extends 'baseBack.html.twig' %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">
+
+{% endblock %}
 {% block body %}
     <center> <h1>List des Compagnie Aerienne</h1></center>
     <div style="display: flex; align-items: center; justify-content: center; margin-top: 10px; padding: 10px;">
@@ -30,7 +34,13 @@
     </table>
     </div>
     <a class="btn btn-primary" href="{{ path('AddCompagnie') }}">Add A new Compagnie</a>
-
+    {% block javascripts %}
+        <script src="//code.jquery.com/jquery.js"></script>
+        <!-- Load Flashy default JavaScript -->
+        <script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>
+        <!-- Include Flashy default partial -->
+    {% endblock %}
+    {{ include('@MercurySeriesFlashy/flashy.html.twig') }}
 
 
 {% endblock %}

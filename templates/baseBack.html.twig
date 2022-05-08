@@ -16,6 +16,8 @@
     <link href="{{ asset('../backAssets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css') }}" rel="stylesheet" />
     <!-- CSS Files -->
     <link href="{{ asset('../backAssets/css/argon-dashboard.css?v=1.1.2') }}" rel="stylesheet" />
+    {% block stylesheets %}
+    {% endblock %}
 </head>
 
 <body class="">
@@ -116,13 +118,13 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="{{ path('DisplayCompagnie') }}">
-                        <i class="ni ni-planet text-blue"></i> Gestion Compagnie Aerienne
+                    <a class="nav-link " href="./examples/icons.html">
+                        <i class="ni ni-planet text-blue"></i> Icons
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="{{ path('ConsulterVol') }}">
-                        <i class="ni ni-pin-3 text-orange"></i> Gestion Vol
+                    <a class="nav-link " href="./examples/maps.html">
+                        <i class="ni ni-pin-3 text-orange"></i> Maps
                     </a>
                 </li>
                 <li class="nav-item">
@@ -131,18 +133,23 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="./examples/tables.html">
-                        <i class="ni ni-bullet-list-67 text-red"></i> Tables
+                    <a class="nav-link " href="{{ path('ConsulterVol') }}">
+                        <i class="ni ni-bullet-list-67 text-red"></i> Gestion Vol
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="./examples/login.html">
-                        <i class="ni ni-key-25 text-info"></i> Login
+                    <a class="nav-link" href="{{ path('DisplayCompagnie') }}">
+                        <i class="ni ni-key-25 text-info"></i> Gestion Compagnie
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="./examples/register.html">
-                        <i class="ni ni-circle-08 text-pink"></i> Register
+                    <a class="nav-link" href="{{ path('voyagecalendar') }}">
+                        <i class="ni ni-calendar-grid-58"></i> Calendar
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('statCompagnie') }}">
+                        <i class="ni ni-chart-pie-35"></i> Statistique
                     </a>
                 </li>
             </ul>
@@ -348,6 +355,8 @@
 <!--   Argon JS   -->
 <script src="{{ asset('../backAssets/js/argon-dashboard.min.js?v=1.1.2') }}"></script>
 <script src="https://cdn.trackjs.com/agent/v3/latest/t.js') }}"></script>
+{% block javascripts %}
+{% endblock %}
 <script>
     window.TrackJS &&
     TrackJS.install({
@@ -358,6 +367,3 @@
 </body>
 
 </html>
-
-
-

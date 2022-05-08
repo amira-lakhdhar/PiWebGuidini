@@ -2,24 +2,44 @@
 {% block body %}
 
     <center> <h1>Voyage</h1></center>
-
-    <div class="row" style="padding: 10px; margin-top: 10px;margin-left: 20px;margin-right: 20px; padding-bottom: 10px; padding-top: 10px;">
-        {% for voyage in voyages %}
-            <div class="col-sm-3">
-                <div class="card">
-                    <img src="{{ asset('Uploads/Image/'~voyage.getVol().getCompagnie().Logo) }}" style="width:100%; border-radius: 5px 5px 0 0;"  width="250"
-                         height="200">
-                    <div class="container" >
-                        <h4><b>{{voyage.getVol().getDestination() }}</b></h4>
-                        <p>{{ voyage.Prix }} $<br>
-                            <b>Numero de Vol : </b> {{ voyage.getVol().getNumVol() }}<br>
-                            <b>Vers : </b> {{ voyage.getVol().getVilleDepart() }}<br>
-                            <b>Company Name :</b>{{ voyage.getVol().getCompagnie().nom }}
-                        </p>
-                        <a class="btn btn-primary" href="{{ path('ConsulterVoyageUser',{'id':voyage.id}) }}">Voir Plus</a>
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
+    Recherche :
+    <input type="text" class="form-control" id="advanced" placeholder="Type here...">
+    <div id="all">
+        {% include 'ajax.html.twig' %}
     </div>
+
+    {% block javascripts %}
+        <script src="{{ asset('assets/js/jquery.js') }}"></script>
+        <script
+                src="{{ asset('https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js')}}">
+        </script>
+        <script>
+            $( document ).ready(function() {
+                var currentRequest = null;
+                $("#advanced").keyup(function(e){
+                    /* La variable value va prendre la valeur insérer dans le champ de texte
+                    afin d’effectuer la recherche */
+                    var value = $(this).val();
+                    if(currentRequest != null) {
+                        currentRequest.abort();
+                    }
+                    /* Ajax est lancé lors du remplissage du champ texte dont l’id est
+                    « search » pour faire la recherche */
+                    currentRequest = $.ajax({
+                        url : "{{ path('ajaxDoctor') }}",
+                        type : 'GET',
+                        data: {
+                            'searchValue' : value
+                        },
+                        success : function(retour)
+                        {
+                            $('#all').html(retour);
+                        },
+                    });
+                    return false;
+                });
+            });
+        </script>
+    {% endblock %}
+
 {% endblock %}

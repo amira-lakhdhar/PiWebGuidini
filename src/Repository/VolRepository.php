@@ -19,6 +19,17 @@ class VolRepository extends ServiceEntityRepository
         parent::__construct($registry, Vol::class);
     }
 
+    public function CountVolid()
+    {
+        $qb=$this->createQueryBuilder("v")
+            ->select(['count(IDENTITY(v.Compagnie))','IDENTITY(v.Compagnie)'])
+            ->groupBy('v.Compagnie')
+            ->orderBy('count(IDENTITY(v.Compagnie))','desc');
+
+        return $qb->getQuery()->getResult();
+
+    }
+
     // /**
     //  * @return Vol[] Returns an array of Vol objects
     //  */

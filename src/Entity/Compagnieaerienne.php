@@ -53,6 +53,7 @@ class Compagnieaerienne
 
     /**
      * @Assert\NotBlank(message="Logo should not be empty")
+     * @Assert\NotNull(message="logo should not be empty")
      * @ORM\Column(type="string", length=255)
      */
     private $Logo;

@@ -97,6 +97,9 @@
     "laminas/laminas-zendframework-bridge": {
         "version": "1.1.1"
     },
+    "mercuryseries/flashy-bundle": {
+        "version": "v3.0.2"
+    },
     "monolog/monolog": {
         "version": "1.26.1"
     },
@@ -572,6 +575,9 @@
     },
     "twig/extra-bundle": {
         "version": "v3.3.3"
+    },
+    "twig/intl-extra": {
+        "version": "v3.3.5"
     },
     "twig/twig": {
         "version": "v2.13.1"
