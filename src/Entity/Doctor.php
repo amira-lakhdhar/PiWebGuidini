@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\DoctorRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -61,6 +63,16 @@ class Doctor
      * @ORM\ManyToOne(targetEntity=Hospital::class, inversedBy="doctors")
      */
     private $id_hospital;
+
+    /**
+     * @ORM\OneToMany(targetEntity=RateDoctor::class, mappedBy="id_Doctor")
+     */
+    private $rateDoctors;
+
+    public function __construct()
+    {
+        $this->rateDoctors = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -135,6 +147,36 @@ class Doctor
     public function setIdHospital(?Hospital $id_hospital): self
     {
         $this->id_hospital = $id_hospital;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|RateDoctor[]
+     */
+    public function getRateDoctors(): Collection
+    {
+        return $this->rateDoctors;
+    }
+
+    public function addRateDoctor(RateDoctor $rateDoctor): self
+    {
+        if (!$this->rateDoctors->contains($rateDoctor)) {
+            $this->rateDoctors[] = $rateDoctor;
+            $rateDoctor->setIdDoctor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRateDoctor(RateDoctor $rateDoctor): self
+    {
+        if ($this->rateDoctors->removeElement($rateDoctor)) {
+            // set the owning side to null (unless already changed)
+            if ($rateDoctor->getIdDoctor() === $this) {
+                $rateDoctor->setIdDoctor(null);
+            }
+        }
 
         return $this;
     }

@@ -19,6 +19,32 @@ class DoctorRepository extends ServiceEntityRepository
         parent::__construct($registry, Doctor::class);
     }
 
+
+
+    public function CountHosptalId()
+    {
+        $qb=$this->createQueryBuilder("h")
+            ->select(['count(IDENTITY(h.id_hospital))','IDENTITY(h.id_hospital)'])
+            ->groupBy('h.id_hospital')
+            ->orderBy('count(IDENTITY(h.id_hospital))','desc');
+
+        return $qb->getQuery()->getResult();
+
+    }
+
+
+    public function findDoctor($value)
+    {
+        return $this->createQueryBuilder('d')
+            ->Where('d.name LIKE :val')
+            ->orWhere('d.speciality LIKE :val')
+            ->setParameter('val', '%'.$value.'%')
+            ->orderBy('d.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     // /**
     //  * @return Doctor[] Returns an array of Doctor objects
     //  */

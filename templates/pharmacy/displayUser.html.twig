@@ -2,31 +2,111 @@
 
 {% block title %}Hello DoctorController!{% endblock %}
 
-{% block body %}
-    <center> <h1>Pharmacies :</h1></center>
+{% block Spec %}
+<div class="w3ls-galley" id="gallery">
+    <div class="container">
+        <h3 class="center">Pharmacies </h3>
+        <div class="chocolat-parent" id="parentHorizontalTab" data-chocolat-title="Go-Fly Services">
+            <ul class="resp-tabs-list hor_1">
+                <li><a href="#tab1" class="tabs"><span> Pharmacies</span></a></li>
+                <li><a href="#tab2" class="tabs"><span> Pharmacies du Jour</span></a></li>
+                <li><a href="#tab3" class="tabs"><span> Pharmacies du Nuit </span></a></li>
 
-    <div class="row" style="padding: 10px; margin-top: 10px;margin-left: 20px;margin-right: 20px; padding-bottom: 10px; padding-top: 10px;">
-        {% for pharmacy in pharmacies %}
-            <div class="col-sm-3">
-                <div class="card">{% if pharmacy.hourly =="Day" %}
-                    <img src="{{ asset('Uploads/Image/day.jpg') }}" style="width:100%; border-radius: 5px 5px 0 0;"  width="250"
-                         height="200" >
+
+            </ul>
+            <div class="resp-tabs-container hor_1">
+                <!-- Tab-1 -->
+
+
+    {% block Musuem %}
+        <div>
+    {% for pharmacy in pharmacies %}
+
+            <div class="col-md-3 col-sm-6 col-xs-6 taba">
+                <a class="chocolat-image" href="images/holy.jpg" title="Go-Fly Services">
+                    {% if pharmacy.hourly =="Day" %}
+                        <img src="{{ asset('Uploads/Image/day.jpg') }}" style="width:100%; border-radius: 5px 5px 0 0;"  width="250"
+                             height="200" >
                     {% else %}
                         <img src="{{ asset('Uploads/Image/night.jpg') }}" style="width:100%; border-radius: 5px 5px 0 0;"  width="250"
                              height="200" >
-                        {% endif %}
-                    <div class="container">
-                        <h4><b>{{ pharmacy.name }}</b></h4>
-                        <p>{{ pharmacy.location }}<br>
-                            <b>Speciality : </b> {{ pharmacy.hourly }}<br>
-                            <b>Phone Number : </b> {{ pharmacy.phone }}<br>
-                            <b>Email : {{ pharmacy.email }}</b>
+                    {% endif %}
 
-                        </p>
-                    </div>
-                </div>
+                </a>
+                <h4><b>{{ pharmacy.name }}</b></h4>
+                <p>{{ pharmacy.location }}<br>
+                    <b>Speciality : </b> {{ pharmacy.hourly }}<br>
+                    <b>Phone Number : </b> {{ pharmacy.phone }}<br>
+                    <b>Email : {{ pharmacy.email }}</b><br>
+                    <a href="#contact" class="register scroll">Request Details</a>
             </div>
-        {% endfor %}
+
+    {% endfor %}
+        </div>
+                {% endblock %}
+
+                {% block Hotels %}
+                    <div>
+                    {% for pharmacy in pharmacies %}
+{% if pharmacy.hourly=='Day' %}
+                            <div class="col-md-3 col-sm-6 col-xs-6 taba">
+                                <a class="chocolat-image" href="images/holy.jpg" title="Go-Fly Services">
+                                    {% if pharmacy.hourly =="Day" %}
+                                        <img src="{{ asset('Uploads/Image/day.jpg') }}" style="width:100%; border-radius: 5px 5px 0 0;"  width="250"
+                                             height="200" >
+                                    {% else %}
+                                        <img src="{{ asset('Uploads/Image/night.jpg') }}" style="width:100%; border-radius: 5px 5px 0 0;"  width="250"
+                                             height="200" >
+                                    {% endif %}
+
+                                </a>
+                                <h4><b>{{ pharmacy.name }}</b></h4>
+                                <p>{{ pharmacy.location }}<br>
+                                    <b>Speciality : </b> {{ pharmacy.hourly }}<br>
+                                    <b>Phone Number : </b> {{ pharmacy.phone }}<br>
+                                    <b>Email : {{ pharmacy.email }}</b><br>
+                                    <a href="#contact" class="register scroll">Request Details</a>
+                            </div>
+{% endif %}
+                    {% endfor %}
+                    </div>
+                {% endblock %}
+
+                {% block Boite %}
+                    <div>
+                    {% for pharmacy in pharmacies %}
+                        {% if pharmacy.hourly=='Night' %}
+                            <div class="col-md-3 col-sm-6 col-xs-6 taba">
+                                <a class="chocolat-image" href="images/holy.jpg" title="Go-Fly Services">
+                                    {% if pharmacy.hourly =="Day" %}
+                                        <img src="{{ asset('Uploads/Image/day.jpg') }}" style="width:100%; border-radius: 5px 5px 0 0;"  width="250"
+                                             height="200" >
+                                    {% else %}
+                                        <img src="{{ asset('Uploads/Image/night.jpg') }}" style="width:100%; border-radius: 5px 5px 0 0;"  width="250"
+                                             height="200" >
+                                    {% endif %}
+
+                                </a>
+                                <h4><b>{{ pharmacy.name }}</b></h4>
+                                <p>{{ pharmacy.location }}<br>
+                                    <b>Speciality : </b> {{ pharmacy.hourly }}<br>
+                                    <b>Phone Number : </b> {{ pharmacy.phone }}<br>
+                                    <b>Email : {{ pharmacy.email }}</b><br>
+                                    <a href="#contact" class="register scroll">Request Details</a>
+                            </div>
+{% endif %}
+                    {% endfor %}
+                    </div>
+                {% endblock %}
+            </div>
+        </div>
     </div>
 
+
+
+
+
+
 {% endblock %}
+
+

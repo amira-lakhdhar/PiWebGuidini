@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Hospital;
 use App\Form\HospitalType;
+use App\Repository\DoctorRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -88,6 +89,44 @@ class HospitalController extends AbstractController
         return $this->render("hospital/modifier.html.twig",['f'=>$form->createView()]);
     }
 
+    /**
+     * @Route("/stats", name="stats")
+     */
+    public function statistiques(DoctorRepository $DocRepo){
+        // On va chercher toutes les catégories
+        $hospitals_id = $DocRepo->CountHosptalId();
+        $hospitals = $this->getDoctrine()->getManager()->getRepository(Hospital::class)->findAll();
+
+        $HospitalName = [];
+        $categColor = [];
+        $NumofDoctorsCount = [];
+        $listVerif= [];
+
+        // On "démonte" les données pour les séparer tel qu'attendu par ChartJS
+        foreach($hospitals_id as $hospital_id){
+            foreach($hospitals as $hospital){
+            if($hospital_id[2]==$hospital->getId()){
+                $HospitalName[] = $hospital->getName();
+                $NumofDoctorsCount[] = $hospital_id[1];
+                $listVerif[]=$hospital->getId();
+            }
+            }
+        }
+        if(count($hospitals_id)<count($hospitals)){
+                foreach($hospitals as $hospital){
+                    if(!in_array($hospital->getId(), $listVerif)){
+                        $HospitalName[] = $hospital->getName();
+                        $NumofDoctorsCount[] = 0;
+                    }
+
+            }
+        }
+        return $this->render('hospital/stats.html.twig', [
+            'HospitalName' => json_encode($HospitalName),
+            'NumofDoctorsCount' => json_encode($NumofDoctorsCount),
+
+        ]);
+    }
 
 
 
@@ -95,4 +134,5 @@ class HospitalController extends AbstractController
 
 
 
-}
+
+    }

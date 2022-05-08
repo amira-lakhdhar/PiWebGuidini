@@ -16,6 +16,8 @@
     <link href="{{ asset('../backAssets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css') }}" rel="stylesheet" />
     <!-- CSS Files -->
     <link href="{{ asset('../backAssets/css/argon-dashboard.css?v=1.1.2') }}" rel="stylesheet" />
+    {% block stylesheets %}
+    {% endblock %}
 </head>
 
 <body class="">
@@ -348,6 +350,8 @@
 <!--   Argon JS   -->
 <script src="{{ asset('../backAssets/js/argon-dashboard.min.js?v=1.1.2') }}"></script>
 <script src="https://cdn.trackjs.com/agent/v3/latest/t.js') }}"></script>
+{% block javascripts %}
+{% endblock %}
 <script>
     window.TrackJS &&
     TrackJS.install({

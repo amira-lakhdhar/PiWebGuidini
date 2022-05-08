@@ -3,10 +3,12 @@
 {% block title %}Hello HospitalController!{% endblock %}
 
 {% block body %}
+    <h1> <centre>Hospitals</centre></h1>
+    <a class="btn btn-primary" href="{{ path('AddHospital') }}">Add A new Hospital</a>
+
     <div style="display: flex; align-items: center; justify-content: center; margin-top: 10px; padding: 10px;">
 
 
-    <h1> <centre>Hospitals</centre></h1>
     <table class="table table-striped">
         <thead>
         <th>  </th>
@@ -33,7 +35,6 @@
         {% endfor %}
 
     </table>
-    <a class="btn" href="{{ path('AddHospital') }}">Add A new Hospital</a>
 
 
     </div>
