@@ -1,0 +1,40 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}Hebergement index{% endblock %}
+
+{% block body %}
+
+<center> <h1>List des Hebergement</h1></center>
+<div style="display: flex; align-items: center; justify-content: center; margin-top: 10px; padding: 10px;">
+
+    <div class="card">
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                <th> type </th>
+                <th>Nom</th>
+                <th>adresse</th>
+                <th>prix par nuit</th>
+                <th>Actions</th>
+                </thead>
+
+                {% for hebergement in hebergement %}
+                    <tr>
+                        <td>{{ hebergement.type }}</td>
+                        <td>{{ hebergement.nom }}</td>
+                        <td>{{ hebergement.adresse }}</td>
+                        <td>{{ hebergement.prixParNuit }}</td>
+                        <td> <a class="btn btn-success" href="{{ path('dsdhebergementEdit',{'id':hebergement.id}) }}">Modifier</a>
+                        </td>
+                        <td><a class="btn btn-danger" href="{{ path('dsdhebergementDelete',{'id':hebergement.id}) }}">Delete</a> </td>
+
+                    </tr>
+
+                {% endfor %}
+            </table>
+            <a class="btn btn-success" href="{{ path('dsdAddHebergement') }}">Nouveau Hebergement</a>
+
+
+
+
+{% endblock %}

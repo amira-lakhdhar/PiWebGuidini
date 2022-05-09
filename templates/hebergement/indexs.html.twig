@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hebergement index{% endblock %}
+
+{% block body %}
+    <center> <h1>Hebergement :</h1></center>
+
+
+
+    <div class="row" style="padding: 10px; margin-top: 10px;margin-left: 20px;margin-right: 20px; padding-bottom: 10px; padding-top: 10px;" id="tableac">
+        {% for hebergement in hebergement %}
+            <div class="col-sm-3">
+                <div class="card">
+                    <div class="container">
+                        <p><img src="{{ asset('Uploads/'~ hebergement.Photo) }}" style="width:100%; border-radius: 5px 5px 0 0;"  width="250"
+                                height="200" > </p>
+                        <p> <b>{{ hebergement.nom }}</b></p>
+                        <p>{{ hebergement.type }}<br>
+                            <b>Adresse : </b> {{ hebergement.adresse }}<br>
+                            <b>Prix par nuit : </b> {{ hebergement.prixParNuit }}<br>
+
+                        </p>
+                        {% if hebergement.isReserved==1 %}
+                            {% if hebergement.reservation.etat=="En Cours" %}
+                                <p style="background-color:grey;">{{ hebergement.reservation.etat }}<br>
+                                    <b>date : </b> {{ hebergement.reservation.date|date }}<br>
+                                    <b>duree : </b> {{ hebergement.reservation.duree }}<br>
+
+                                </p>
+                            {% elseif hebergement.reservation.etat=="Acceptée" %}
+                                <p style="background-color:green;">{{ hebergement.reservation.etat }}<br>
+                                    <b>date : </b> {{ hebergement.reservation.date|date }}<br>
+                                    <b>duree : </b> {{ hebergement.reservation.duree }}<br>
+
+                                </p>
+                            {% elseif hebergement.reservation.etat=="Annulée" %}
+                                <p style="background-color:red;">{{ hebergement.reservation.etat }}<br>
+                                    <b>date : </b> {{ hebergement.reservation.date|date }}<br>
+                                    <b>duree : </b> {{ hebergement.reservation.duree }}<br>
+
+                                </p>
+                            {% endif %}
+                        {% else %}
+                            <p type="button" href="{{ path("resAddReservation", {'idH': hebergement.id}) }}" class="btn btn-primary">Reserver</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}
