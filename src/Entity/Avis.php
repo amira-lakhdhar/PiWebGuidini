@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\AvisRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=AvisRepository::class)
@@ -19,16 +20,24 @@ class Avis
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank
+     * @Assert\Range(
+     *      min = 1,
+     *      max = 5,
+     *      notInRangeMessage = "You must be between {{ min }} and {{ max }} ",
+     * )
      */
     private $rate;
 
     /**
      * @ORM\ManyToOne(targetEntity=Place::class, inversedBy="avis")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $Place;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="avis")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $user;
 

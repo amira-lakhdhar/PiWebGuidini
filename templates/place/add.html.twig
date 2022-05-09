@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'baseBack.html.twig' %}
 
 {% block title %}New Place{% endblock %}
 
@@ -10,5 +10,5 @@
     <button class="btn">{{ button_label|default('Save') }}</button>
     {{ form_end(form) }}
 
-    <a href="{{ path('place') }}">back to list</a>
+    <a href="{{ path('plcplace') }}">back to list</a>
 {% endblock %}

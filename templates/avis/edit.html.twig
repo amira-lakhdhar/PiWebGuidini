@@ -6,11 +6,11 @@
     <h1>Edit Avis</h1>
 
     {{ form_start(form) }}
-    {{ form_widget(form) }}
+    {{ form_widget(form.rate) }}
     <button class="btn">{{ button_label|default('Update') }}</button>
+
+    <div style="visibility: hidden">{{ form_widget(form.Place) }}</div>
+    <div style="visibility: hidden"> {{ form_widget(form.user) }}</div>
     {{ form_end(form) }}
 
-    <a href="{{ path('avis') }}">back to list</a>
-
-    <a href="{{ path('avisDelete', {'id': avis.id}) }}">delete</a>
 {% endblock %}

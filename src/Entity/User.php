@@ -6,9 +6,16 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @UniqueEntity(
+ *     fields={"email"},
+ *     message="L'email que vous avais indiqué  est déjà utilisé !"
+ * )
  */
 class User
 {
@@ -21,16 +28,30 @@ class User
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="nom should not be empty !!")
+     * @Assert\Length(
+     *     min=3,
+     *     max= 20,
+     *     minMessage ="Name should be >=3",
+     *     maxMessage ="Name should be <=20")
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="prenom should not be empty !!")
+     * @Assert\Length(
+     *     min=3,
+     *     max= 20,
+     *     minMessage ="Name should be >=3",
+     *     maxMessage ="Name should be <=20")
      */
     private $prenom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="adresse should not be empty !!")
+     *     maxMessage ="Name should be <=20")
      */
     private $adresse;
 
@@ -41,8 +62,14 @@ class User
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min="8" ,  minMessage="Votre mot de passe doit faire minimum 8 caracters")
      */
     private $password;
+
+    /**
+     * @Assert\EqualTo(propertyPath="Password",message="les deux mot de passe doit etre le meme")
+     */
+    public $Confirm_Password;
 
     /**
      * @ORM\Column(type="boolean")
@@ -55,14 +82,14 @@ class User
     private $reclamations;
 
     /**
-     * @ORM\OneToMany(targetEntity=Avis::class, mappedBy="user")
+     * @ORM\OneToMany(targetEntity=Commentaire::class, mappedBy="User")
      */
-    private $avis;
+    private $commentaires;
 
     public function __construct()
     {
         $this->reclamations = new ArrayCollection();
-        $this->avis = new ArrayCollection();
+        $this->commentaires = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -171,34 +198,52 @@ class User
 
         return $this;
     }
-
-    /**
-     * @return Collection|Avis[]
-     */
-    public function getAvis(): Collection
+    public function getConfirm_Password(): ?string
     {
-        return $this->avis;
+        return $this->Confirm_Password;
     }
 
-    public function addAvi(Avis $avi): self
+    public function setConfirm_Password(string $Confirm_Password): self
     {
-        if (!$this->avis->contains($avi)) {
-            $this->avis[] = $avi;
-            $avi->setUser($this);
+        $this->Confirm_Password = $Confirm_Password;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Commentaire[]
+     */
+    public function getCommentaires(): Collection
+    {
+        return $this->commentaires;
+    }
+
+    public function addCommentaire(Commentaire $commentaire): self
+    {
+        if (!$this->commentaires->contains($commentaire)) {
+            $this->commentaires[] = $commentaire;
+            $commentaire->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeAvi(Avis $avi): self
+    public function removeCommentaire(Commentaire $commentaire): self
     {
-        if ($this->avis->removeElement($avi)) {
+        if ($this->commentaires->removeElement($commentaire)) {
             // set the owning side to null (unless already changed)
-            if ($avi->getUser() === $this) {
-                $avi->setUser(null);
+            if ($commentaire->getUser() === $this) {
+                $commentaire->setUser(null);
             }
         }
 
         return $this;
     }
+
+    public function __toString()
+    {
+       return "test1";
+    }
+
+
 }

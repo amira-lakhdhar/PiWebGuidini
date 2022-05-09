@@ -13,6 +13,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Class AvisController
+ * @package App\Controller
+ * @Route("/avs", name="avs")
+ */
 class AvisController extends AbstractController
 {
     /**
@@ -39,7 +44,7 @@ class AvisController extends AbstractController
             $entityManager->persist($avis);
             $entityManager->flush();
 
-            return $this->redirectToRoute('avis');
+            return $this->redirectToRoute('avsavis');
         }
 
         return $this->render('avis/add.html.twig', [
@@ -68,7 +73,7 @@ class AvisController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('avis');
+            return $this->redirectToRoute('plcUserplace');
         }
 
         return $this->render('avis/edit.html.twig', [
@@ -77,17 +82,4 @@ class AvisController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{id}", name="avisDelete")
-     */
-    public function delete(Request $request, Avis $avis): Response
-    {
-
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->remove($avis);
-        $entityManager->flush();
-
-
-        return $this->redirectToRoute('avis');
-    }
 }

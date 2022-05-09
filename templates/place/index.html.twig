@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'baseBack.html.twig' %}
 
 {% block title %}Place index{% endblock %}
 
@@ -11,8 +11,7 @@
             <th>type</th>
             <th>nom</th>
             <th>adresse</th>
-            <th>photo</th>
-            <th>Actions</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -21,10 +20,9 @@
                 <td>{{ place.type }}</td>
                 <td>{{ place.nom }}</td>
                 <td>{{ place.adresse }}</td>
-                <td>{{ place.photo }}</td>
                 <td>
-                    <a href="{{ path('placeShow', {'id': place.id}) }}">show</a>
-                    <a href="{{ path('placeEdit', {'id': place.id}) }}">edit</a>
+                    <a href="{{ path('plcplaceShow', {'id': place.id}) }}">show</a>
+                    <a href="{{ path('plcplaceEdit', {'id': place.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -35,5 +33,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('AddPlace') }}">Create new</a>
+    <a href="{{ path('plcAddPlace') }}">Create new</a>
 {% endblock %}

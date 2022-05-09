@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Place index{% endblock %}
+
+{% block body %}
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    {% set z=1 %}
+        {% for place in place %}
+            <div class="col-md-3 col-sm-6 col-xs-6 taba">
+                <div id="myCarousel{{ z }}" class="carousel slide" data-ride="carousel">
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                        <li data-target="#myCarousel{{ z }}" data-slide-to="0" class="active"></li>
+                        {% set i = 0 %}
+                        {% set j = 1 %}
+                        {% for pic in place.getPictures() %}
+                            {% if j>1 %}
+                                {% set i = i + 1 %}
+                                <li data-target="#myCarousel{{ z }}" data-slide-to="{{ i }}"></li>
+                            {% endif %}
+                            {% set j=j+1 %}
+                        {% endfor %}
+                    </ol>
+
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner">
+                        <div class="item active">
+                            {% set pic1 = place.getPictures()|first %}
+                            <img src="{{ asset('Uploads/'~ pic1) }}" alt="Los Angeles">
+                        </div>
+                        {% set k = 1 %}
+                        {% for pic in place.getPictures() %}
+                            {% if k>1 %}
+                                <div class="item">
+                                    <img src="{{ asset('Uploads/'~ pic.Name) }}" >
+                                </div>
+                            {% endif %}
+                            {% set k=k+1 %}
+                        {% endfor %}
+                    </div>
+
+                    <!-- Left and right controls -->
+                    <a class="left carousel-control" href="#myCarousel{{ z }}" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="right carousel-control" href="#myCarousel{{ z }}" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+                <h4 class="price"> 105 $ /1 Person </h4>
+                <p>{{ place.nom }} : {{ place.adresse }}</p>
+                {% set avg=0 %}
+                {% set m=0 %}
+                {% set tot=0 %}
+                {% for r in ratings %}
+                    {% if  r.place.id == place.id %}
+                        {% set m=m+1 %}
+                        {% set tot=tot+r.rate %}
+                        {% set avg=tot/m %}
+                    {% endif %}
+                {% endfor %}
+
+                Average Rating : <b>{{ avg|number_format(2, '.', ',') }}/5</b><br>
+                {% set avg=0 %}
+                {% set tot=0 %}
+                {% set i=0 %}
+                {% set idrate=0 %}
+                <a class="btn btn-info" href="{{ path('plcplaceShowUser',{'id':place.id}) }}">Voire Commentaires</a>
+
+            </div>
+        {% set z=z+1 %}
+        {% endfor %}
+
+
+{% endblock %}

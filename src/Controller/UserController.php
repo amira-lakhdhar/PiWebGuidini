@@ -2,9 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Test;
 use App\Entity\User;
-use App\Form\TestType;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;

@@ -21,8 +21,8 @@
                 <td>{{ avis.user.nom }} {{ avis.user.nom }}</td>
                 <td>{{ avis.place.nom }}</td>
                 <td>
-                    <a href="{{ path('avisShow', {'id': avis.id}) }}">show</a>
-                    <a href="{{ path('avisEdit', {'id': avis.id}) }}">edit</a>
+                    <a href="{{ path('avsavisShow', {'id': avis.id}) }}">show</a>
+                    <a href="{{ path('avsavisEdit', {'id': avis.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -33,5 +33,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('AddAvis') }}">Create new</a>
+    <a href="{{ path('avsAddAvis') }}">Create new</a>
 {% endblock %}

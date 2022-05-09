@@ -19,6 +19,16 @@ class AvisRepository extends ServiceEntityRepository
         parent::__construct($registry, Avis::class);
     }
 
+    public function CountPlaceId()
+    {
+        $qb=$this->createQueryBuilder("h")
+            ->select(['avg(h.rate)','IDENTITY(h.Place)'])
+            ->groupBy('h.Place')
+            ->orderBy('avg(IDENTITY(h.Place))','desc');
+        return $qb->getQuery()->getResult();
+
+    }
+
     // /**
     //  * @return Avis[] Returns an array of Avis objects
     //  */
