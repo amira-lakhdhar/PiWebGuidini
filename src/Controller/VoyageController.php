@@ -164,7 +164,7 @@ class VoyageController extends AbstractController
         $requestString=$request->get('searchValue');
         $jeux = $PartRepository->findVoyage($requestString);
 
-        return $this->render('ajax.html.twig', [
+        return $this->render('voyage/ajax.html.twig', [
             "voyages"=>$jeux,
         ]);
     }
