@@ -95,13 +95,17 @@ class User implements UserInterface
      */
     private $rateDoctors;
 
-
+    /**
+     * @ORM\OneToMany(targetEntity=Commentaire::class, mappedBy="User")
+     */
+    private $commentaires;
 
     public function __construct()
     {
         $this->reclamations = new ArrayCollection();
         $this->id_Doctor = new ArrayCollection();
         $this->rateDoctors = new ArrayCollection();
+        $this->commentaires = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -245,6 +249,19 @@ class User implements UserInterface
         if (!$this->rateDoctors->contains($rateDoctor)) {
             $this->rateDoctors[] = $rateDoctor;
             $rateDoctor->setIdUser($this);
+    /**
+     * @return Collection|Commentaire[]
+     */
+    public function getCommentaires(): Collection
+    {
+        return $this->commentaires;
+    }
+
+    public function addCommentaire(Commentaire $commentaire): self
+    {
+        if (!$this->commentaires->contains($commentaire)) {
+            $this->commentaires[] = $commentaire;
+            $commentaire->setUser($this);
         }
 
         return $this;
@@ -286,4 +303,23 @@ class User implements UserInterface
 
         return $this;
     }
+}
+    public function removeCommentaire(Commentaire $commentaire): self
+    {
+        if ($this->commentaires->removeElement($commentaire)) {
+            // set the owning side to null (unless already changed)
+            if ($commentaire->getUser() === $this) {
+                $commentaire->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+       return "test1";
+    }
+
+
 }

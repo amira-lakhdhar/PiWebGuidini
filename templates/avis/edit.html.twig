@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Avis{% endblock %}
+
+{% block body %}
+    <h1>Edit Avis</h1>
+
+    {{ form_start(form) }}
+    {{ form_widget(form.rate) }}
+    <button class="btn">{{ button_label|default('Update') }}</button>
+
+    <div style="visibility: hidden">{{ form_widget(form.Place) }}</div>
+    <div style="visibility: hidden"> {{ form_widget(form.user) }}</div>
+    {{ form_end(form) }}
+
+{% endblock %}
