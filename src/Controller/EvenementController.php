@@ -107,7 +107,7 @@ class EvenementController extends AbstractController
      */
     public function showevent($id,Request $request): Response
     {
-        $iduser=1;
+        $iduser=$this->getUser()->getUsername();
         $event = $this->getDoctrine()->getManager()->getRepository(Evenement::class)->find($id);
         $user=$this->getDoctrine()->getManager()->getRepository(User::class)->find($iduser);
         $reservation=$this->getDoctrine()->getManager()->getRepository(Reservation::class)->findBy(['id_user'=>$iduser,'id_evenement'=>$id]);
@@ -143,7 +143,7 @@ class EvenementController extends AbstractController
      */
     public function showEvenementuser(Request $request,EvenementRepository $evenementRepository): Response
     {
-        $iduser=1;
+        $iduser=$this->getUser()->getUsername();
         $filter=new Recherche();
         $form = $this->createForm(RechercheType::class,$filter);
         $form->handleRequest($request);

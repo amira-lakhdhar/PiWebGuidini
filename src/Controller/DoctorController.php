@@ -85,7 +85,7 @@ class DoctorController extends AbstractController
 
 
     /**
-     * @Route("/showDoctor/{id}", name="showDoctor")
+     * @Route("/showDoctor/{id}/user", name="showDoctor")
      */
     public function displayDoctor($id,Request $request): Response
     {
@@ -101,13 +101,13 @@ class DoctorController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user = $this->getDoctrine()->getManager()->getRepository(User::class)->find(1);
+            $user = $this->getDoctrine()->getManager()->getRepository(User::class)->find($this->getUser()->getUsername());
             $rate->setIdUser($user);
             $rate->setIdDoctor($doctors);
             $em = $this->getDoctrine()->getManager();
             $em->persist($rate);
             $em->flush();
-            $client = new Twilio\Rest\Client('AC6f15ff6996e9b275c9ffb80f38aad3f4', 'a299126b8eb9775e7443eef50e52dbc9');
+          /*  $client = new Twilio\Rest\Client('AC6f15ff6996e9b275c9ffb80f38aad3f4', 'a299126b8eb9775e7443eef50e52dbc9');
             $message = $client->messages->create(
             //'+216'.$user1->getNum(),
                 '+21623110748',
@@ -115,7 +115,7 @@ class DoctorController extends AbstractController
                     'from' => '+14123079450', // From a valid Twilio number
                     'body' => 'Salut,  Votre avez un nouveau Rate ',
                 ]
-            );
+            );*/
             return $this->redirectToRoute('showDoctor',['id'=>$id]);
         }
 
@@ -190,15 +190,16 @@ class DoctorController extends AbstractController
     }
 
     /**
-     * @Route("/searchDoctorajax", name="ajaxDoctor")
+     * @Route("/searchDoctorajax", name="ajaxDoctorr")
      */
     public function searchajax(Request $request ,DoctorRepository $PartRepository)
     {
+
         $requestString=$request->get('searchValue');
         $jeux = $PartRepository->findDoctor($requestString);
         $rating =$this->getDoctrine()->getManager()->getRepository(RateDoctor::class)->findAll();
 
-        return $this->render('ajax.html.twig', [
+        return $this->render('doctor/ajax.html.twig', [
             "doctors"=>$jeux,
             'rates'=>$rating,'id_User'=>1,
         ]);

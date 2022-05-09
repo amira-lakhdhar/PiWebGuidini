@@ -74,17 +74,32 @@ class SecurityController extends AbstractController
             $this->addFlash('login','Error Login');
         }
 
-        if(TRUE === $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')){
-            dd($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN'));
+        if($this->isGranted('ROLE_ADMIN')){
+
             return $this->redirectToRoute('recreclamation');
 
         }
-        if(TRUE === $this->get('security.authorization_checker')->isGranted('ROLE_USER')){
-            dd($this->get('security.authorization_checker')->isGranted('ROLE_USER'));
+        if($this->isGranted('ROLE_USER')){
             return $this->redirectToRoute('security_home');
 
         }
         return $this->render('security/login.html.twig');
+    }
+
+
+    /**
+     * @Route("/login/check", name="security_check" , methods={"GET","POST"})
+     */
+    public function check(){
+
+        if($this->getUser()->getRoles()==['ROLE_ADMIN']){
+
+            return $this->redirectToRoute('plcplace');
+
+        }
+        if($this->getUser()->getRoles()==['ROLE_USER']){
+            return $this->redirectToRoute('security_home');
+        }
     }
 
     /**

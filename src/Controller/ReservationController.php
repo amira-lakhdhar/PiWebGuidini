@@ -87,7 +87,7 @@ class ReservationController extends AbstractController
      */
     public function showEvenementuser(): Response
     {
-        $user=$this->getDoctrine()->getManager()->getRepository(User::class)->find(1);
+        $user=$this->getDoctrine()->getManager()->getRepository(User::class)->find($this->getUser()->getUsername());
         $reservation=$this->getDoctrine()->getManager()->getRepository(Reservation::class)->findBy(['id_user'=>$user]);
 
 

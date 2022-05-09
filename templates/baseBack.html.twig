@@ -29,9 +29,9 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <!-- Brand -->
-        <a class="navbar-brand pt-0" href="./index.html">
-            <img src="{{ asset('../backAssets/img/brand/blue.png') }}" class="navbar-brand-img" alt="...">
-        </a>
+
+            <img src="{{ asset('assets/images/Logo.gif')  }}" width=220px height=200px >
+
         <!-- User -->
         <ul class="nav align-items-center d-md-none">
             <li class="nav-item dropdown">
@@ -122,6 +122,16 @@
                 </li>
 
                 <li class="nav-item">
+                    <a class="nav-link " href="{{ path('plcplace') }}">
+                        <i class="ni ni-books text-orange"></i> Gestion Places
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="{{ path('plcstats') }}">
+                        <i class="ni ni-planet text-blue"></i> Statistiques Places
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link " href="{{ path('ConsulterOffre') }}">
                         <i class="ni ni-books text-orange"></i> Gestion Offre
                     </a>
@@ -209,13 +219,7 @@
                     </a>
                 </li>
             </ul>
-            <ul class="navbar-nav">
-                <li class="nav-item active active-pro">
-                    <a class="nav-link" href="./examples/upgrade.html">
-                        <i class="ni ni-send text-dark"></i> Upgrade to PRO
-                    </a>
-                </li>
-            </ul>
+
         </div>
     </div>
 </nav>
@@ -272,7 +276,6 @@
                         </a>
                         <div class="dropdown-divider"></div>
                         <a href="{{ path('security_logout') }}" class="dropdown-item">
-                        <a href="#!" class="dropdown-item">
                             <i class="ni ni-user-run"></i>
                             <span>Logout</span>
                         </a>

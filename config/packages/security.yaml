@@ -9,15 +9,13 @@ security:
                 class: App\Entity\User
                 property: email
     firewalls:
-        dev:
-                pattern: ^/(_(profiler|wdt)|css|images|js)/
-                security: false
         main:
                 anonymous: true
                 provider: in_database
                 form_login:
                     login_path: security_login
                     check_path: security_login
+                    default_target_path: security_check
                 logout:
                     path: security_logout
                     target: security_home

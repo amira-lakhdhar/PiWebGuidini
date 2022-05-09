@@ -6,7 +6,7 @@
         <center><h2>Mr {{ user.nom }} Votre reservation a l'evenement {{ event.Nom}} est effectue avec success </h2></center><br>
     <center> <img src="{{ asset('QrCode/'~qrcode) }}" > </center><br>
 
-    <center><a class="btn btn-primary" href="{{ path('imprimer_reservation',{'QrCode':qrcode }) }}">Download</a> <a class="btn btn-primary" href="{{ path('ShowEvenementUser')}}">Done  </a>
+    <center> <a class="btn btn-primary" href="{{ path('ShowEvenementUser')}}">Done  </a>
     <br>
         <a class="btn btn-success" href="{{ path('ShowReservation') }}">Check your reservations</a><br>
     </center>

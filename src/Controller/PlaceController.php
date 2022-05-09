@@ -48,7 +48,7 @@ class PlaceController extends AbstractController
         $avis = new Avis();
 
         $commentaire=new Commentaire();
-        $user=$userRepository->find(1);
+        $user=$userRepository->find($this->getUser()->getUsername());
 
         $places=$repository->findAll();
         $avis=$avisrepository->findAll();
@@ -122,7 +122,7 @@ class PlaceController extends AbstractController
         $commentaire=new Commentaire();
         $avis=new Avis();
 
-        $user=$userRepository->find(1);
+        $user=$userRepository->find($this->getUser()->getUsername());
         $rate = $this->getDoctrine()->getManager()->getRepository(Avis::class)->findOneBy(['Place'=>$place,'user'=>$user]);
         if($rate==null){
             $rate = new Avis();
@@ -130,7 +130,7 @@ class PlaceController extends AbstractController
         }
         $form1 = $this->createForm(CommentaireType::class, $commentaire);
         $form1->handleRequest($request);
-        $form = $this->createForm(AvisType::class, $avis);
+        $form = $this->createForm(AvisType::class, $rate);
         $form->handleRequest($request);
         if ($form1->isSubmitted() && $form1->isValid() ) {
             $commentaire->setUser($user);
@@ -142,10 +142,10 @@ class PlaceController extends AbstractController
             return $this->redirectToRoute('plcplaceShowUser',['id'=>$place->getId()]);
         }
         if ( $form->isSubmitted() && $form->isValid()){
-            $avis->setUser($user);
-            $avis->setPlace($place);
+            $rate->setUser($user);
+            $rate->setPlace($place);
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($avis);
+            $entityManager->persist($rate);
             $entityManager->flush();
         }
         $pos=strpos($place->getAdresse()," ");
@@ -161,7 +161,7 @@ class PlaceController extends AbstractController
             'comnts'=>$place->getCommentaires(),
             'lat'=>$lat,
             'lng'=>$lng,
-            'ratings'=>$avis->getRate()
+            'ratings'=>$rate->getRate()
         ]);
     }
 
@@ -191,16 +191,20 @@ class PlaceController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $image=$form->get('photo')->getData();
-            $fichier=md5(uniqid()).'.'.$image->guessExtension();
-            $image->move(
-                $this->getParameter('image_directory'),
-                $fichier
-            );
-            $place->setPhoto($fichier);
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('plcplaceShowUser',['id'=>$place->getId()]);
+            foreach($form->get('pictures')->getData() as $image) {
+                $fichier = md5(uniqid()) . '.' . $image->guessExtension();
+                $image->move(
+                    $this->getParameter('image_directory'),
+                    $fichier
+                );
+                $picture = new Pictures();
+                $picture->setName($fichier);
+                $picture->setPlace($place);
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($picture);
+                $entityManager->flush();
+            }
+            return $this->redirectToRoute('plcplace');
         }
 
         return $this->render('place/edit.html.twig', [
@@ -210,7 +214,7 @@ class PlaceController extends AbstractController
     }
 
     /**
-     * @Route("/del/{id}", name="placeDelete")
+     * @Route("/del/{id}/sdf", name="placeDelete")
      */
     public function delete(Request $request, Place $place): Response
     {
@@ -220,7 +224,7 @@ class PlaceController extends AbstractController
         $entityManager->flush();
 
 
-        return $this->redirectToRoute('plcplaceShowUser',['id'=>$place->getId()]);
+        return $this->redirectToRoute('plcplace');
     }
 
     /**

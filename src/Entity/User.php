@@ -249,6 +249,8 @@ class User implements UserInterface
         if (!$this->rateDoctors->contains($rateDoctor)) {
             $this->rateDoctors[] = $rateDoctor;
             $rateDoctor->setIdUser($this);
+        }
+    }
     /**
      * @return Collection|Commentaire[]
      */
@@ -283,7 +285,7 @@ class User implements UserInterface
 
     public function getUsername()
     {
-        // TODO: Implement getUsername() method.
+        return $this->getId();
     }
 
     public function eraseCredentials()
@@ -303,7 +305,7 @@ class User implements UserInterface
 
         return $this;
     }
-}
+
     public function removeCommentaire(Commentaire $commentaire): self
     {
         if ($this->commentaires->removeElement($commentaire)) {
