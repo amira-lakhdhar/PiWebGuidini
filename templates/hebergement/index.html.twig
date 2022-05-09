@@ -3,37 +3,50 @@
 {% block title %}Hebergement index{% endblock %}
 
 {% block body %}
-    <h1>Hebergement index</h1>
+    <center> <h1>Hebergement :</h1></center>
+    <a type="button" href="{{ path("dsdsorted")}}" class="btn btn-primary">Sort by price</a>
 
-    <table class="table">
-        <thead>
-        <tr>
-            <th>type</th>
-            <th>nom</th>
-            <th>adresse</th>
-            <th>prix Par Nuit</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
+
+    <div class="row" style="padding: 10px; margin-top: 10px;margin-left: 20px;margin-right: 20px; padding-bottom: 10px; padding-top: 10px;" id="tableac">
         {% for hebergement in hebergement %}
-            <tr>
-                <td>{{ hebergement.type }}</td>
-                <td>{{ hebergement.nom }}</td>
-                <td>{{ hebergement.adresse }}</td>
-                <td>{{ hebergement.prixParNuit }}</td>
-                <td>
-                    <a href="{{ path('hebergementShow', {'id': hebergement.id}) }}">show</a>
-                    <a href="{{ path('hebergementEdit', {'id': hebergement.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            <div class="col-sm-3">
+                <div class="card">
+                    <div class="container">
+                        <p><img src="{{ asset('Uploads/'~ hebergement.Photo) }}" style="width:100%; border-radius: 5px 5px 0 0;"  width="250"
+                             height="200" > </p>
+                       <p> <b>{{ hebergement.nom }}</b></p>
+                        <p>{{ hebergement.type }}<br>
+                            <b>Adresse : </b> {{ hebergement.adresse }}<br>
+                            <b>Prix par nuit : </b> {{ hebergement.prixParNuit }}<br>
 
-    <a href="{{ path('AddHebergement') }}">Create new</a>
+                        </p>
+                        {% if hebergement.isReserved==1 %}
+                            {% if hebergement.reservation.etat=="En Cours" %}
+                                <p style="background-color:grey;">{{ hebergement.reservation.etat }}<br>
+                                    <b>date : </b> {{ hebergement.reservation.date|date }}<br>
+                                    <b>duree : </b> {{ hebergement.reservation.duree }}<br>
+
+                                </p>
+                            {% elseif hebergement.reservation.etat=="Acceptée" %}
+                                <p style="background-color:green;">{{ hebergement.reservation.etat }}<br>
+                                    <b>date : </b> {{ hebergement.reservation.date|date }}<br>
+                                    <b>duree : </b> {{ hebergement.reservation.duree }}<br>
+
+                                </p>
+                                {% elseif hebergement.reservation.etat=="Annulée" %}
+                                    <p style="background-color:red;">{{ hebergement.reservation.etat }}<br>
+                                        <b>date : </b> {{ hebergement.reservation.date|date }}<br>
+                                        <b>duree : </b> {{ hebergement.reservation.duree }}<br>
+
+                                    </p>
+                                    {% endif %}
+                        {% else %}
+                        <a type="button" href="{{ path("resAddReservation", {'idH': hebergement.id}) }}" class="btn btn-primary">Reserver</a>
+                        {% endif %}
+                            </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
 {% endblock %}

@@ -1,10 +1,9 @@
-{% extends 'base.html.twig' %}
+{% extends 'baseBack.html.twig' %}
 
 {% block title %}Hebergement{% endblock %}
 
 {% block body %}
     <h1>Hebergement</h1>
-
     <table class="table">
         <tbody>
         <tr>
@@ -26,9 +25,9 @@
         </tbody>
     </table>
 
-    <a href="{{ path('hebergement') }}">back to list</a>
+    <a class="btn btn-success" href="{{ path('dsdhebergementyyAdmin') }}">back to list</a>
 
-    <a href="{{ path('hebergementEdit', {'id': hebergement.id}) }}">edit</a>
+    <a class="btn btn-success" href="{{ path('dsdhebergementEdit', {'id': hebergement.id}) }}">edit</a>
 
-    <a href="{{ path('hebergementDelete', {'id': hebergement.id}) }}">delete</a>
+    <a class="btn btn-danger" href="{{ path('dsdhebergementDelete', {'id': hebergement.id}) }}">delete</a>
 {% endblock %}

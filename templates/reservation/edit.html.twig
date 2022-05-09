@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Edit Reservation{% endblock %}
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
 
 {% block body %}
     <h1>Edit Reservation</h1>
@@ -10,7 +11,7 @@
     <button class="btn">{{ button_label|default('Update') }}</button>
     {{ form_end(form) }}
 
-    <a href="{{ path('reservation') }}">back to list</a>
+    <a href="{{ path('resreservation') }}">back to list</a>
 
     <a href="{{ path('reservationDelete', {'id': reservation.id}) }}">delete</a>
 {% endblock %}

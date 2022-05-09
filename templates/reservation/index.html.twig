@@ -1,11 +1,12 @@
-{% extends 'base.html.twig' %}
+{% extends 'baseBack.html.twig' %}
 
 {% block title %}User Reservation{% endblock %}
 
 {% block body %}
     <h1>Reservation index</h1>
+    <input type="text" id="search" name="search" class="form-control" placeholder="Search by ....">
 
-    <table class="table">
+    <table class="table" id="tableac">
         <thead>
         <tr>
             <th>date</th>
@@ -13,11 +14,12 @@
             <th>etat</th>
             <th>payement</th>
             <th>user</th>
+            <th>Qr code</th>
             <th>Actions</th>
         </tr>
         </thead>
         <tbody>
-        {% for user in user %}
+        {% for reservation in reservation %}
             <tr>
                 <td>{{ reservation.date|date }}</td>
                 <td>{{ reservation.duree }}</td>
@@ -28,9 +30,13 @@
                     <td> payé </td>
                 {% endif %}
                 <td>{{ reservation.user.nom }} {{ reservation.user.prenom }}</td>
+                <td><img width="100px" height="100px" src="{{ qr_code_data_uri('Scan Me') }}" /></td>
                 <td>
-                    <a href="{{ path('reservationShow', {'id': reservation.id}) }}">show</a>
-                    <a href="{{ path('reservationEdit', {'id': reservation.id}) }}">edit</a>
+                    <a class="btn btn-success" href="{{ path('resreservationEditAcc', {'id': reservation.id}) }}">Accept</a>
+                    <a class="btn btn-danger" href="{{ path('resreservationEditDec', {'id': reservation.id}) }}">Decline</a>
+                    <a class="btn btn-danger" href="{{ path('resreservationDelete', {'id': reservation.id}) }}">Delete</a>
+                    <a class="btn btn-danger" href="{{ path('resprint', {'id': reservation.id}) }}">Print</a>
+
                 </td>
             </tr>
         {% else %}
@@ -38,8 +44,42 @@
                 <td colspan="3">no records found</td>
             </tr>
         {% endfor %}
-        </tbody>
-    </table>
 
-    <a href="{{ path('AddReservation') }}">Create new</a>
+    </table>
+    </tbody>
+    <div id="div_chart"></div>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        {{ gc_draw(piechart, 'div_chart') }}
+    </script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#search').keyup(function(){
+                search_table($(this).val());
+            });
+            function search_table(value){
+                $('#tableac tbody tr').each(function(){
+                    var found = 'false';
+                    $(this).each(function(){
+                        if($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0)
+                        {
+                            found = 'true';
+                        }
+                    });
+                    if(found === 'true')
+                    {
+                        $(this).show();
+
+                    }
+                    else
+                    {
+                        $(this).hide();
+
+                    }
+                });
+            }
+        });
+    </script>
 {% endblock %}

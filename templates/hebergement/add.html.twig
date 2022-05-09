@@ -1,4 +1,5 @@
-{% extends 'base.html.twig' %}
+{% extends 'baseBack.html.twig' %}
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
 
 {% block title %}New Hebergement{% endblock %}
 
@@ -9,6 +10,4 @@
     {{ form_widget(form) }}
     <button class="btn">{{ button_label|default('Save') }}</button>
     {{ form_end(form) }}
-
-    <a href="{{ path('hebergement') }}">back to list</a>
 {% endblock %}

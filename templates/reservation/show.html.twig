@@ -1,4 +1,5 @@
 {% extends 'base.html.twig' %}
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
 
 {% block title %}Reservation{% endblock %}
 
@@ -34,9 +35,9 @@
         </tbody>
     </table>
 
-    <a href="{{ path('reservation') }}">back to list</a>
+    <a href="{{ path('resreservation') }}">back to list</a>
 
-    <a href="{{ path('reservationEdit', {'id': reservation.id}) }}">edit</a>
+    <a href="{{ path('resreservationEdit', {'id': reservation.id}) }}">edit</a>
 
-    <a href="{{ path('reservationDelete', {'id': reservation.id}) }}">delete</a>
+    <a href="{{ path('resreservationDelete', {'id': reservation.id}) }}">delete</a>
 {% endblock %}

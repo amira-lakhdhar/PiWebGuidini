@@ -47,4 +47,9 @@ class HebergementRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function sort()
+    {
+        return $this->findBy(array(), array('prixParNuit' => 'ASC'));
+    }
+
 }

@@ -47,4 +47,14 @@ class ReservationRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function calcul($etat)
+    {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.etat = :val')
+            ->setParameter('val', $etat)
+            ->getQuery()
+            ->getResult()
+            ;
+
+    }
 }

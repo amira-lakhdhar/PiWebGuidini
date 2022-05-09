@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ReservationRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ReservationRepository::class)
@@ -19,16 +20,19 @@ class Reservation
 
     /**
      * @ORM\Column(type="date")
+     * @Assert\GreaterThan("today")
      */
     private $date;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Positive(message="choose a positive number")
      */
     private $duree;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private $etat;
 
@@ -43,9 +47,10 @@ class Reservation
     private $user;
 
     /**
-     * @ORM\OneToOne(targetEntity=Hebergement::class, cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=Hebergement::class, cascade={"persist"})
      */
     private $hebergement;
+
 
     public function getId(): ?int
     {
@@ -123,4 +128,8 @@ class Reservation
 
         return $this;
     }
+
+
+
+
 }
